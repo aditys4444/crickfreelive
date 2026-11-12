@@ -10,4 +10,4 @@ User-agent: Bingbot
 Allow: /
 
 # Sitemap Index
-Sitemap: https://crickfreelive.online/sitemap.xml
+Sitemap: https://www.crickfreelive.online/sitemap.xml
