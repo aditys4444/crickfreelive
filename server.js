@@ -377,16 +377,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Canonical WWW Redirect: enforce https://www.crickfreelive.online
-  const clientHost = (req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().split(':')[0];
-  if (clientHost === 'crickfreelive.online') {
-    res.writeHead(301, {
-      'Location': `https://www.crickfreelive.online${req.url}`,
-      'Cache-Control': 'public, max-age=31536000'
-    });
-    res.end();
-    return;
-  }
 
   // 3. Rate Limiting Protection (Anti-DDoS & Bot Scraping)
   const clientIp = getClientIp(req);
