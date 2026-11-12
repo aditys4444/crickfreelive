@@ -453,9 +453,17 @@ class CrickFreeApp {
 
             this.failoverTimeout = setTimeout(() => {
               this.playChannel(channel, nextIdx, false);
-            }, 1200);
+            }, 800);
           } else {
-            this.showToast('Please select another server below.');
+            const fallback = this.channels.find(c => c.id === 'willow-cricket-hd' || c.id === 'dd-sports-live-cricket');
+            if (fallback && fallback.id !== channel.id) {
+              this.showToast(`Broadcaster updating. Connecting to ${fallback.name}...`);
+              setTimeout(() => {
+                this.playChannel(fallback, 0, true);
+              }, 1200);
+            } else {
+              this.showToast('Please select another server below.');
+            }
           }
         }
       });

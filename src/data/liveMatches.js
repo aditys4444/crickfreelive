@@ -21,8 +21,8 @@ export const UPCOMING_BANNERS = [
     subline: "Stream Free on Sony Ten",
     badge: "STREAM FREE",
     isLive: true,
-    channelId: "sony-sports-ten-3-hd",
-    broadcaster: "Stream Free on Sony Ten",
+    channelId: "willow-cricket-hd",
+    broadcaster: "Stream Free on Willow Cricket HD",
     bannerImage: "public/banners/ind-nz-clean.jpg"
   },
   {
