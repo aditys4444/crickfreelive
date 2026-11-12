@@ -29,11 +29,11 @@ export const UPCOMING_BANNERS = [
     id: "espn-pak-sl",
     title: "Pakistan vs Sri Lanka",
     tournament: "Sri Lanka tour of Pakistan 2026/27",
-    subline: "Sri Lanka tour of Pakistan • Sony Sports Ten 1 HD",
+    subline: "Sri Lanka tour of Pakistan • Star Sports 2",
     badge: "LIVE NOW",
     isLive: true,
-    channelId: "sony-sports-ten-1-hd",
-    broadcaster: "Live on Sony Sports Ten 1 HD",
+    channelId: "star-sports-2-live",
+    broadcaster: "Live on Star Sports 2",
     bannerImage: "public/banners/stadium-international.svg"
   },
   {
