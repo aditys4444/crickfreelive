@@ -3,7 +3,7 @@
  * Minimal, Fast, High-Performance Sports Web Application
  */
 
-import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js';
+import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261112_04';
 import { UPCOMING_BANNERS } from '../data/liveMatches.js';
 
 class CrickFreeApp {
@@ -59,19 +59,45 @@ class CrickFreeApp {
     this.init();
   }
 
-  init() {
+  async init() {
     this.setupNavigation();
     this.setupHeroBanners();
     this.setupCategories();
     this.renderChannels();
     this.fetchLiveBanners();
+    await this.syncChannelsFromApi();
     
     // Auto-sync real match scores and fixtures every 45s
     setInterval(() => this.fetchLiveBanners(), 45000);
+    setInterval(() => this.syncChannelsFromApi(), 60000);
 
     // Deep-linking: auto-play channel if passed via #channel-id or ?channel=channel-id
-    setTimeout(() => this.handleDeepLink(), 60);
+    setTimeout(() => this.handleDeepLink(), 80);
     window.addEventListener('hashchange', () => this.handleDeepLink());
+  }
+
+  async syncChannelsFromApi() {
+    try {
+      const res = await fetch('/api/channels?_nocache=' + Date.now());
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.channels) && data.channels.length > 0) {
+          this.channels = data.channels;
+          this.renderChannels();
+
+          // Re-sync current channel servers if player is active
+          if (this.currentChannel) {
+            const fresh = this.channels.find(c => c.id === this.currentChannel.id);
+            if (fresh) {
+              this.currentChannel = fresh;
+              this.renderServerButtons(fresh);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[CrickFree] Live channels sync skipped:', e.message);
+    }
   }
 
   handleDeepLink() {

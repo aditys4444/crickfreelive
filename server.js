@@ -555,7 +555,8 @@ const server = http.createServer(async (req, res) => {
 
   // Production Caching & Security Headers
   const isHtml = ext === '.html' || pathname === '/';
-  const isCacheableStatic = ['.png', '.jpg', '.jpeg', '.svg', '.ico', '.webp', '.css', '.js'].includes(ext);
+  const isCode = ext === '.js' || ext === '.json' || ext === '.css';
+  const isMediaAsset = ['.png', '.jpg', '.jpeg', '.svg', '.ico', '.webp', '.woff2', '.ttf'].includes(ext);
 
   const headers = {
     'Content-Type': contentType,
@@ -564,10 +565,12 @@ const server = http.createServer(async (req, res) => {
     'Referrer-Policy': 'strict-origin-when-cross-origin'
   };
 
-  if (isHtml) {
-    headers['Cache-Control'] = 'no-cache, must-revalidate';
-  } else if (isCacheableStatic) {
-    headers['Cache-Control'] = 'public, max-age=86400, stale-while-revalidate=604800';
+  if (isHtml || isCode) {
+    headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+    headers['Pragma'] = 'no-cache';
+    headers['Expires'] = '0';
+  } else if (isMediaAsset) {
+    headers['Cache-Control'] = 'public, max-age=86400';
   }
 
   fs.readFile(filePath, (err, content) => {
