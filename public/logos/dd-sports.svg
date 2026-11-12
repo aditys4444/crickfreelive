@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 180" width="400" height="180">
+  <defs>
+    <linearGradient id="ddBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#260C08"/>
+      <stop offset="50%" stop-color="#3D1408"/>
+      <stop offset="100%" stop-color="#140804"/>
+    </linearGradient>
+    <linearGradient id="ddRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#B91C1C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="180" rx="10" fill="url(#ddBg)"/>
+
+  <polygon points="40,0 80,0 160,180 0,180" fill="rgba(239,68,68,0.15)"/>
+  <polygon points="360,0 320,0 240,180 400,180" fill="rgba(245,158,11,0.12)"/>
+
+  <!-- Classic Doordarshan Eye Emblem -->
+  <g transform="translate(55, 62)">
+    <circle cx="0" cy="0" r="30" fill="url(#ddRed)"/>
+    <path d="M -22,-6 C -12,-20 12,-20 22,-6 C 12,8 -12,8 -22,-6 Z" fill="#FBBF24"/>
+    <circle cx="0" cy="-6" r="6" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="105" y="55" font-family="-apple-system, sans-serif" font-size="34" font-weight="900" letter-spacing="2" fill="#FFFFFF">DD</text>
+  <text x="105" y="85" font-family="-apple-system, sans-serif" font-size="28" font-weight="900" letter-spacing="3" fill="#FBBF24">SPORTS</text>
+
+  <!-- 1080p 60fps Badge -->
+  <g transform="translate(265, 38)">
+    <rect width="105" height="58" rx="8" fill="#1C1917" stroke="#EF4444" stroke-width="2"/>
+    <text x="52" y="28" font-family="-apple-system, sans-serif" font-size="18" font-weight="900" fill="#FFFFFF" text-anchor="middle">1080p</text>
+    <text x="52" y="48" font-family="-apple-system, sans-serif" font-size="14" font-weight="900" fill="#10B981" text-anchor="middle">60 FPS</text>
+  </g>
+
+  <rect x="0" y="142" width="400" height="38" fill="rgba(15,23,42,0.85)"/>
+  <circle cx="30" cy="161" r="4.5" fill="#10B981"/>
+  <text x="44" y="165" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#E2E8F0">DD CRICKET FEED • FREE TO AIR</text>
+  <text x="375" y="165" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" fill="#10B981" text-anchor="end">60fps</text>
+</svg>
+

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="1600" height="600">
+  <defs>
+    <radialGradient id="champSky" cx="50%" cy="15%" r="70%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+    <linearGradient id="champBeamL" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.45"/>
+      <stop offset="40%" stop-color="#F59E0B" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="champBeamR" x1="100%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.45"/>
+      <stop offset="40%" stop-color="#10B981" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="turfChamp" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#047857" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="600" fill="url(#champSky)"/>
+
+  <!-- Grandstands -->
+  <path d="M 0 330 Q 800 210 1600 330 L 1600 600 L 0 600 Z" fill="#0A0F1D" opacity="0.95"/>
+  <path d="M 0 370 Q 800 270 1600 370 L 1600 600 L 0 600 Z" fill="#04070E"/>
+
+  <path d="M 0 328 Q 800 208 1600 328" stroke="rgba(251, 191, 36, 0.35)" stroke-width="2.5" fill="none"/>
+  <path d="M 120 300 Q 800 190 1480 300" stroke="rgba(52, 211, 153, 0.25)" stroke-width="1.5" fill="none"/>
+
+  <!-- Lights -->
+  <polygon points="170,15 280,15 650,590 60,590" fill="url(#champBeamL)"/>
+  <polygon points="1430,15 1320,15 950,590 1540,590" fill="url(#champBeamR)"/>
+
+  <g transform="translate(180, 20)">
+    <rect x="-16" y="0" width="32" height="15" rx="3" fill="#FFFFFF"/>
+    <circle cx="0" cy="7" r="28" fill="#FBBF24" opacity="0.45" filter="blur(6px)"/>
+  </g>
+  <g transform="translate(1420, 20)">
+    <rect x="-16" y="0" width="32" height="15" rx="3" fill="#FFFFFF"/>
+    <circle cx="0" cy="7" r="28" fill="#34D399" opacity="0.45" filter="blur(6px)"/>
+  </g>
+
+  <!-- Pitch Oval -->
+  <ellipse cx="800" cy="535" rx="760" ry="165" fill="#04563B"/>
+  <ellipse cx="800" cy="535" rx="760" ry="165" fill="url(#turfChamp)"/>
+  <ellipse cx="800" cy="535" rx="740" ry="155" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2.5" fill="none"/>
+  <ellipse cx="800" cy="535" rx="510" ry="105" stroke="rgba(251, 191, 36, 0.4)" stroke-dasharray="10 8" stroke-width="2" fill="none"/>
+
+  <!-- Center Strip -->
+  <ellipse cx="800" cy="522" rx="138" ry="22" fill="#D1BA8E" opacity="0.85"/>
+  <ellipse cx="800" cy="522" rx="136" ry="20" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.2" fill="none"/>
+</svg>
+

@@ -1,0 +1,19 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="sony-sports",Sony Sports Ten 3 HD
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster.m3u8%3Fhdnea%3Dexp%3D1794485455~acl%3D%2F*~id%3D40372471730344503579726952725709~hmac%3D19355efed4e8f497c5540a23f16e5921df97d22e6c1ff478b776ef35cd5cd255
+#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="sony-sports",Sony Sports Ten 1 HD
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2011747%2FTEN1HD%2Fmaster.m3u8%3Fhdnea%3Dexp%3D1794485455~acl%3D%2F*~id%3D40372471730344503579726952725709~hmac%3D19355efed4e8f497c5540a23f16e5921df97d22e6c1ff478b776ef35cd5cd255
+#EXTINF:-1 tvg-id="sony-sports-ten-2-hd" tvg-name="Sony Sports Ten 2 HD" tvg-logo="public/logos/sony-ten2.svg" group-title="sony-sports",Sony Sports Ten 2 HD
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020434%2FTEN2HD%2Fmaster.m3u8%3Fhdnea%3Dexp%3D1794485455~acl%3D%2F*~id%3D40372471730344503579726952725709~hmac%3D19355efed4e8f497c5540a23f16e5921df97d22e6c1ff478b776ef35cd5cd255
+#EXTINF:-1 tvg-id="sony-sports-ten-5-hd" tvg-name="Sony Sports Ten 5 HD" tvg-logo="public/logos/sony-ten5.svg" group-title="sony-sports",Sony Sports Ten 5 HD
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020593%2FSONYSIXHD%2Fmaster.m3u8%3Fhdnea%3Dexp%3D1794485455~acl%3D%2F*~id%3D40372471730344503579726952725709~hmac%3D19355efed4e8f497c5540a23f16e5921df97d22e6c1ff478b776ef35cd5cd255
+#EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="willow-international",Willow Cricket HD
+https://d36r8jifhgsk5j.cloudfront.net/Willow_TV.m3u8
+#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="free-tournaments",DD Sports HD
+https://mumbai-edge.smartplaytv.in/DDSportsHD/index.m3u8
+#EXTINF:-1 tvg-id="cricket-gold-hd" tvg-name="Cricket Gold" tvg-logo="public/logos/cricket-gold.svg" group-title="free-tournaments",Cricket Gold
+https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
+#EXTINF:-1 tvg-id="m-sports-live-cricket" tvg-name="M Sports HD" tvg-logo="public/logos/m-sports.svg" group-title="free-tournaments",M Sports HD
+/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
+#EXTINF:-1 tvg-id="eurosport-hd-live" tvg-name="Eurosport HD" tvg-logo="public/logos/eurosport.svg" group-title="free-tournaments",Eurosport HD
+https://livetv.shamon-cable.net:8443/Eurosport-HD/index.m3u8

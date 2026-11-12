@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="1600" height="600">
+  <defs>
+    <radialGradient id="t20Sky" cx="50%" cy="15%" r="75%">
+      <stop offset="0%" stop-color="#0F282F"/>
+      <stop offset="50%" stop-color="#09181D"/>
+      <stop offset="100%" stop-color="#02090C"/>
+    </radialGradient>
+    <linearGradient id="neonBeamL" x1="0%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#059669" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="neonBeamR" x1="100%" y1="0%" x2="40%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#0891B2" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="fieldLight" cx="50%" cy="65%" r="55%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#047857" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="600" fill="url(#t20Sky)"/>
+
+  <!-- Modern Curved Arch Architecture -->
+  <path d="M 0 310 Q 800 160 1600 310 L 1600 600 L 0 600 Z" fill="#061217" opacity="0.95"/>
+  <path d="M 0 350 Q 800 230 1600 350 L 1600 600 L 0 600 Z" fill="#030A0D"/>
+  
+  <path d="M 0 308 Q 800 158 1600 308" stroke="rgba(16, 185, 129, 0.45)" stroke-width="3" fill="none"/>
+  <path d="M 100 280 Q 800 140 1500 280" stroke="rgba(6, 182, 212, 0.3)" stroke-width="1.5" fill="none"/>
+
+  <!-- Electrifying Stadium Floodlight Beams -->
+  <polygon points="120,10 240,10 650,590 0,590" fill="url(#neonBeamL)"/>
+  <polygon points="1480,10 1360,10 950,590 1600,590" fill="url(#neonBeamR)"/>
+  <polygon points="320,20 400,20 800,570 260,570" fill="url(#neonBeamL)" opacity="0.6"/>
+  <polygon points="1280,20 1200,20 800,570 1340,570" fill="url(#neonBeamR)" opacity="0.6"/>
+
+  <!-- High-Tech Floodlights -->
+  <g transform="translate(140, 20)">
+    <rect x="-15" y="0" width="30" height="15" rx="3" fill="#E2E8F0"/>
+    <circle cx="0" cy="7" r="24" fill="#10B981" opacity="0.45" filter="blur(6px)"/>
+  </g>
+  <g transform="translate(1440, 20)">
+    <rect x="-15" y="0" width="30" height="15" rx="3" fill="#E2E8F0"/>
+    <circle cx="0" cy="7" r="24" fill="#06B6D4" opacity="0.45" filter="blur(6px)"/>
+  </g>
+
+  <!-- Electric Green Turf Oval -->
+  <ellipse cx="800" cy="530" rx="770" ry="165" fill="#04563B"/>
+  <ellipse cx="800" cy="530" rx="770" ry="165" fill="url(#fieldLight)"/>
+  <ellipse cx="800" cy="530" rx="750" ry="155" stroke="rgba(52, 211, 153, 0.55)" stroke-width="2.5" fill="none"/>
+  <ellipse cx="800" cy="530" rx="510" ry="105" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="8 6" stroke-width="1.8" fill="none"/>
+
+  <!-- Pitch Strip -->
+  <ellipse cx="800" cy="520" rx="135" ry="22" fill="#C2A878" opacity="0.85"/>
+  <ellipse cx="800" cy="520" rx="133" ry="20" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.2" fill="none"/>
+</svg>
+

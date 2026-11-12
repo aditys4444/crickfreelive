@@ -1,0 +1,25 @@
+{
+  "name": "crickfreelive",
+  "version": "1.0.0",
+  "description": "Cricket Live Match Streaming Web Portal with multi-server failover and live scorecard",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5"
+  },
+  "keywords": [
+    "cricket",
+    "live-streaming",
+    "sports",
+    "star-sports",
+    "sony-sports",
+    "hls"
+  ],
+  "author": "Aditya Yadav",
+  "license": "MIT"
+}

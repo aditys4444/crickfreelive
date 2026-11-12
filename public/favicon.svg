@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <radialGradient id="favBallGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="25%" stop-color="#F43F5E"/>
+      <stop offset="65%" stop-color="#E11D48"/>
+      <stop offset="90%" stop-color="#9F1239"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </radialGradient>
+    <filter id="favGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#10B981" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+
+  <circle cx="32" cy="32" r="30" fill="#0A0F1A" stroke="#1E293B" stroke-width="1.8"/>
+  <circle cx="32" cy="32" r="25.5" fill="url(#favBallGrad)"/>
+
+  <path d="M16 17 C26 24 26 40 16 47" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M16 17 C26 24 26 40 16 47" stroke="#FECDD3" stroke-width="2.2" stroke-dasharray="2.5 2.5" fill="none"/>
+
+  <path d="M48 17 C38 24 38 40 48 47" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M48 17 C38 24 38 40 48 47" stroke="#FECDD3" stroke-width="2.2" stroke-dasharray="2.5 2.5" fill="none"/>
+
+  <polygon points="28.5,23 39.5,32 28.5,41" fill="#FFFFFF"/>
+
+  <circle cx="51" cy="13" r="6.5" fill="#10B981" filter="url(#favGlow)"/>
+  <circle cx="51" cy="13" r="3" fill="#FFFFFF"/>
+</svg>

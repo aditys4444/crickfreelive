@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="1600" height="600">
+  <defs>
+    <radialGradient id="duskSky" cx="50%" cy="20%" r="75%">
+      <stop offset="0%" stop-color="#2D124D"/>
+      <stop offset="45%" stop-color="#190A2E"/>
+      <stop offset="100%" stop-color="#07030D"/>
+    </radialGradient>
+    <linearGradient id="purpleBeamL" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" stop-opacity="0.45"/>
+      <stop offset="40%" stop-color="#7E22CE" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="roseBeamR" x1="100%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#EC4899" stop-opacity="0.45"/>
+      <stop offset="40%" stop-color="#BE185D" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="turfDusk" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#047857" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#064E3B" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="600" fill="url(#duskSky)"/>
+
+  <!-- Grandstands -->
+  <path d="M 0 325 Q 800 215 1600 325 L 1600 600 L 0 600 Z" fill="#0E0517" opacity="0.95"/>
+  <path d="M 0 365 Q 800 270 1600 365 L 1600 600 L 0 600 Z" fill="#06020A"/>
+
+  <path d="M 0 323 Q 800 213 1600 323" stroke="rgba(216, 180, 254, 0.35)" stroke-width="2.5" fill="none"/>
+  <path d="M 120 295 Q 800 195 1480 295" stroke="rgba(244, 114, 182, 0.25)" stroke-width="1.5" fill="none"/>
+
+  <!-- Lights -->
+  <polygon points="170,15 280,15 650,590 60,590" fill="url(#purpleBeamL)"/>
+  <polygon points="1430,15 1320,15 950,590 1540,590" fill="url(#roseBeamR)"/>
+
+  <g transform="translate(180, 20)">
+    <rect x="-16" y="0" width="32" height="15" rx="3" fill="#FFFFFF"/>
+    <circle cx="0" cy="7" r="28" fill="#C084FC" opacity="0.45" filter="blur(6px)"/>
+  </g>
+  <g transform="translate(1420, 20)">
+    <rect x="-16" y="0" width="32" height="15" rx="3" fill="#FFFFFF"/>
+    <circle cx="0" cy="7" r="28" fill="#F472B6" opacity="0.45" filter="blur(6px)"/>
+  </g>
+
+  <!-- Oval -->
+  <ellipse cx="800" cy="535" rx="760" ry="165" fill="#034530"/>
+  <ellipse cx="800" cy="535" rx="760" ry="165" fill="url(#turfDusk)"/>
+  <ellipse cx="800" cy="535" rx="740" ry="155" stroke="rgba(255, 255, 255, 0.45)" stroke-width="2.5" fill="none"/>
+  <ellipse cx="800" cy="535" rx="510" ry="105" stroke="rgba(244, 114, 182, 0.35)" stroke-dasharray="10 8" stroke-width="2" fill="none"/>
+
+  <!-- Pitch Strip -->
+  <ellipse cx="800" cy="522" rx="138" ry="22" fill="#BA9E73" opacity="0.85"/>
+  <ellipse cx="800" cy="522" rx="136" ry="20" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.2" fill="none"/>
+</svg>
+

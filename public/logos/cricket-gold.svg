@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 180" width="400" height="180">
+  <defs>
+    <linearGradient id="goldBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D1A04"/>
+      <stop offset="50%" stop-color="#3B2608"/>
+      <stop offset="100%" stop-color="#140C02"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="180" rx="10" fill="url(#goldBg)"/>
+
+  <polygon points="40,0 80,0 160,180 0,180" fill="rgba(245,158,11,0.18)"/>
+  <polygon points="360,0 320,0 240,180 400,180" fill="rgba(251,191,36,0.12)"/>
+
+  <!-- Golden Cricket Trophy Icon -->
+  <g transform="translate(48, 62)">
+    <circle cx="0" cy="0" r="26" fill="#78350F" stroke="#F59E0B" stroke-width="2"/>
+    <text x="0" y="8" font-family="-apple-system, sans-serif" font-size="24" text-anchor="middle">🏆</text>
+  </g>
+
+  <!-- Typography -->
+  <text x="90" y="52" font-family="-apple-system, sans-serif" font-size="28" font-weight="900" letter-spacing="1" fill="url(#goldText)">CRICKET</text>
+  <text x="90" y="82" font-family="-apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="3" fill="#FFFFFF">GOLD HD</text>
+
+  <!-- 24/7 Live Stream Badge -->
+  <g transform="translate(280, 42)">
+    <rect width="90" height="50" rx="8" fill="#1C1408" stroke="#F59E0B" stroke-width="2"/>
+    <text x="45" y="32" font-family="-apple-system, sans-serif" font-size="18" font-weight="900" fill="#FBBF24" text-anchor="middle">24/7</text>
+  </g>
+
+  <rect x="0" y="142" width="400" height="38" fill="rgba(15,23,42,0.85)"/>
+  <circle cx="30" cy="161" r="4.5" fill="#10B981"/>
+  <text x="44" y="165" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#E2E8F0">24/7 CRICKET &amp; CLASSIC MATCHES</text>
+  <text x="375" y="165" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" fill="#10B981" text-anchor="end">1080p</text>
+</svg>
+

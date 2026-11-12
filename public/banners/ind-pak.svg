@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="1600" height="600">
+  <defs>
+    <radialGradient id="skyGlow" cx="50%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#142442"/>
+      <stop offset="60%" stop-color="#080F1D"/>
+      <stop offset="100%" stop-color="#03070E"/>
+    </radialGradient>
+    <linearGradient id="floodlightL" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45"/>
+      <stop offset="40%" stop-color="#0284C7" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="floodlightR" x1="100%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45"/>
+      <stop offset="40%" stop-color="#0284C7" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pitchGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="50%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+    <radialGradient id="turfHighlight" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#047857" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Deep Night Sky -->
+  <rect width="1600" height="600" fill="url(#skyGlow)"/>
+
+  <!-- Distant Stadium Canopy Silhouette -->
+  <path d="M 0 340 Q 400 240 800 240 Q 1200 240 1600 340 L 1600 600 L 0 600 Z" fill="#070D18" opacity="0.95"/>
+  <path d="M 0 380 Q 800 290 1600 380 L 1600 600 L 0 600 Z" fill="#040810"/>
+
+  <!-- Upper Tier Roof Glow Rim -->
+  <path d="M 0 338 Q 400 238 800 238 Q 1200 238 1600 338" stroke="rgba(56, 189, 248, 0.28)" stroke-width="2.5" fill="none"/>
+  <path d="M 120 310 Q 800 220 1480 310" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" fill="none"/>
+
+  <!-- Atmospheric Light Beams -->
+  <polygon points="180,20 280,20 620,580 80,580" fill="url(#floodlightL)"/>
+  <polygon points="1420,20 1320,20 980,580 1520,580" fill="url(#floodlightR)"/>
+  <polygon points="340,30 400,30 760,560 300,560" fill="url(#floodlightL)" opacity="0.6"/>
+  <polygon points="1260,30 1200,30 840,560 1300,560" fill="url(#floodlightR)" opacity="0.6"/>
+
+  <!-- Floodlight Towers (Pylons & Lamp Arrays) -->
+  <g transform="translate(180, 25)">
+    <line x1="0" y1="0" x2="-20" y2="120" stroke="#475569" stroke-width="4"/>
+    <line x1="40" y1="0" x2="60" y2="120" stroke="#475569" stroke-width="4"/>
+    <line x1="-15" y1="30" x2="55" y2="30" stroke="#334155" stroke-width="2"/>
+    <line x1="-10" y1="70" x2="50" y2="70" stroke="#334155" stroke-width="2"/>
+    <rect x="-24" y="-8" width="88" height="20" rx="4" fill="#E2E8F0"/>
+    <circle cx="-12" cy="2" r="5" fill="#38BDF8"/>
+    <circle cx="6" cy="2" r="5" fill="#FFFFFF"/>
+    <circle cx="24" cy="2" r="5" fill="#38BDF8"/>
+    <circle cx="42" cy="2" r="5" fill="#FFFFFF"/>
+    <circle cx="20" cy="2" r="28" fill="#38BDF8" opacity="0.35" filter="blur(8px)"/>
+  </g>
+
+  <g transform="translate(1380, 25)">
+    <line x1="0" y1="0" x2="-20" y2="120" stroke="#475569" stroke-width="4"/>
+    <line x1="40" y1="0" x2="60" y2="120" stroke="#475569" stroke-width="4"/>
+    <line x1="-15" y1="30" x2="55" y2="30" stroke="#334155" stroke-width="2"/>
+    <line x1="-10" y1="70" x2="50" y2="70" stroke="#334155" stroke-width="2"/>
+    <rect x="-24" y="-8" width="88" height="20" rx="4" fill="#E2E8F0"/>
+    <circle cx="-12" cy="2" r="5" fill="#38BDF8"/>
+    <circle cx="6" cy="2" r="5" fill="#FFFFFF"/>
+    <circle cx="24" cy="2" r="5" fill="#38BDF8"/>
+    <circle cx="42" cy="2" r="5" fill="#FFFFFF"/>
+    <circle cx="20" cy="2" r="28" fill="#38BDF8" opacity="0.35" filter="blur(8px)"/>
+  </g>
+
+  <!-- Lush Green Cricket Oval -->
+  <ellipse cx="800" cy="540" rx="760" ry="170" fill="url(#pitchGrad)"/>
+  <ellipse cx="800" cy="540" rx="760" ry="170" fill="url(#turfHighlight)"/>
+  
+  <!-- Boundary Rope & 30-Yard Circle Arc -->
+  <ellipse cx="800" cy="540" rx="740" ry="160" stroke="rgba(255, 255, 255, 0.45)" stroke-width="2.5" fill="none"/>
+  <ellipse cx="800" cy="540" rx="520" ry="110" stroke="rgba(255, 255, 255, 0.25)" stroke-dasharray="10 8" stroke-width="2" fill="none"/>
+
+  <!-- Center 22-Yard Pitch Strip -->
+  <ellipse cx="800" cy="525" rx="140" ry="24" fill="#D4B996" opacity="0.85"/>
+  <ellipse cx="800" cy="525" rx="138" ry="22" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+
+  <!-- Subtle Atmospheric Sparkles / Particles -->
+  <circle cx="680" cy="220" r="1.5" fill="#FFFFFF" opacity="0.7"/>
+  <circle cx="920" cy="180" r="1.5" fill="#38BDF8" opacity="0.8"/>
+  <circle cx="540" cy="150" r="1" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="1060" cy="260" r="1.5" fill="#FFFFFF" opacity="0.6"/>
+  <circle cx="800" cy="120" r="2" fill="#60A5FA" opacity="0.5"/>
+</svg>
+

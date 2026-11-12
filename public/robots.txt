@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /proxy
+
+# High Priority Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap Index
+Sitemap: /sitemap.xml
