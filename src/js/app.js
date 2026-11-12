@@ -3,7 +3,7 @@
  * Minimal, Fast, High-Performance Sports Web Application
  */
 
-import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261112_04';
+import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261112_05';
 import { UPCOMING_BANNERS } from '../data/liveMatches.js';
 
 class CrickFreeApp {
@@ -201,6 +201,23 @@ class CrickFreeApp {
       this.brandLogoEl.addEventListener('click', (e) => {
         e.preventDefault();
         this.showLandingPage();
+      });
+    }
+
+    // Standby Overlay Quick-Switch Buttons
+    const btnWillow = document.getElementById('btnStandbyWillow');
+    if (btnWillow) {
+      btnWillow.addEventListener('click', () => {
+        const willow = this.channels.find(c => c.id === 'willow-cricket-hd');
+        if (willow) this.showPlayerPage(willow, 0);
+      });
+    }
+
+    const btnDD = document.getElementById('btnStandbyDD');
+    if (btnDD) {
+      btnDD.addEventListener('click', () => {
+        const dd = this.channels.find(c => c.id === 'dd-sports-live-cricket');
+        if (dd) this.showPlayerPage(dd, 0);
       });
     }
   }
@@ -416,6 +433,10 @@ class CrickFreeApp {
 
     if (!this.video) return;
 
+    // Reset standby overlay
+    const standbyOverlay = document.getElementById('playerStandbyOverlay');
+    if (standbyOverlay) standbyOverlay.classList.add('hidden');
+
     const streamUrl = server.url;
     console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1}`);
 
@@ -481,14 +502,16 @@ class CrickFreeApp {
               this.playChannel(channel, nextIdx, false);
             }, 800);
           } else {
-            const fallback = this.channels.find(c => c.id === 'willow-cricket-hd' || c.id === 'dd-sports-live-cricket');
-            if (fallback && fallback.id !== channel.id) {
-              this.showToast(`Broadcaster updating. Connecting to ${fallback.name}...`);
-              setTimeout(() => {
-                this.playChannel(fallback, 0, true);
-              }, 1200);
+            const overlay = document.getElementById('playerStandbyOverlay');
+            const titleEl = document.getElementById('standbyTitle');
+            const descEl = document.getElementById('standbyMessage');
+
+            if (overlay && channel.isMatchBroadcast) {
+              if (titleEl) titleEl.textContent = `${channel.name} • Match Standby`;
+              if (descEl) descEl.textContent = `${channel.name} official broadcast feed activates during scheduled live match hours. To watch 24/7 authentic live cricket right now, choose a live channel:`;
+              overlay.classList.remove('hidden');
             } else {
-              this.showToast('Please select another server below.');
+              this.showToast(`Server temporarily busy. Please choose another channel below.`);
             }
           }
         }

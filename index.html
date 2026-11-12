@@ -134,7 +134,7 @@
   <meta http-equiv="Expires" content="0">
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <link rel="stylesheet" href="src/css/style.css?v=20261112_04">
+  <link rel="stylesheet" href="src/css/style.css?v=20261112_05">
 </head>
 <body>
 
@@ -237,8 +237,21 @@
       <!-- Professional Cinema Theater -->
       <div class="player-theater">
         <!-- 16:9 Video Canvas -->
-        <div class="video-container">
+        <div class="video-container" id="videoContainer">
           <video id="videoPlayer" controls playsinline preload="auto"></video>
+          
+          <!-- Authentic Channel Standby Overlay -->
+          <div id="playerStandbyOverlay" class="player-standby-overlay hidden">
+            <div class="standby-content">
+              <div class="standby-icon">📡</div>
+              <h3 id="standbyTitle" class="standby-title">Live Broadcast Standby</h3>
+              <p id="standbyMessage" class="standby-desc">This official broadcast feed transmits during scheduled live cricket match windows.</p>
+              <div class="standby-actions">
+                <button type="button" id="btnStandbyWillow" class="btn-standby-action">🏏 Watch on Willow Cricket HD</button>
+                <button type="button" id="btnStandbyDD" class="btn-standby-action secondary">🇮🇳 Watch on DD Sports HD</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Unified Broadcast Bar (Under Video) -->
@@ -289,6 +302,6 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
 
-  <script type="module" src="src/js/app.js?v=20261112_04"></script>
+  <script type="module" src="src/js/app.js?v=20261112_05"></script>
 </body>
 </html>
