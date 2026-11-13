@@ -13,6 +13,7 @@ class CrickFreeApp {
     this.currentChannel = this.channels[0];
     this.currentServerIndex = 0;
     this.hls = null;
+    this.shakaPlayer = null;
     this.failoverTimeout = null;
     this.failoverAttempts = 0;
     this.activeCategory = 'all';
@@ -419,7 +420,7 @@ class CrickFreeApp {
     const streamUrl = server.url;
     console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1}`);
 
-    // Tear down active HLS instance
+    // Tear down active player instances
     if (this.hls) {
       try {
         this.hls.stopLoad();
@@ -429,12 +430,61 @@ class CrickFreeApp {
       this.hls = null;
     }
 
+    if (this.shakaPlayer) {
+      try {
+        this.shakaPlayer.destroy();
+      } catch (e) {}
+      this.shakaPlayer = null;
+    }
+
     // Reset video element
     try {
       this.video.pause();
       this.video.removeAttribute('src');
       this.video.load();
     } catch (e) {}
+
+    const isDash = streamUrl.toLowerCase().includes('.mpd') || server.type === 'dash';
+
+    if (isDash && window.shaka) {
+      shaka.polyfill.installAll();
+      if (shaka.Player.isBrowserSupported()) {
+        const player = new shaka.Player(this.video);
+        this.shakaPlayer = player;
+
+        if (server.drm) {
+          player.configure({ drm: server.drm });
+        } else if (server.clearKey) {
+          player.configure({
+            drm: {
+              clearKeys: server.clearKey
+            }
+          });
+        }
+
+        player.load(streamUrl).then(() => {
+          this.failoverAttempts = 0;
+          this.video.muted = false;
+          this.video.play().catch(() => {
+            this.video.muted = true;
+            this.video.play().catch(() => {});
+          });
+        }).catch((err) => {
+          console.warn(`[CrickFree] Shaka DASH error on Server ${this.currentServerIndex + 1}:`, err);
+          if (this.failoverAttempts < channel.servers.length - 1) {
+            this.failoverAttempts++;
+            const nextIdx = (this.currentServerIndex + 1) % channel.servers.length;
+            this.showToast(`Switching to Server ${nextIdx + 1}...`);
+            this.failoverTimeout = setTimeout(() => {
+              this.playChannel(channel, nextIdx, false);
+            }, 800);
+          } else {
+            this.showToast(`${channel.name} stream is connecting. Please switch servers.`);
+          }
+        });
+        return;
+      }
+    }
 
     if (Hls.isSupported()) {
       this.hls = new Hls({

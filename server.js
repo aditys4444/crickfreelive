@@ -218,7 +218,10 @@ const MIME_TYPES = {
   '.txt': 'text/plain; charset=UTF-8',
   '.webmanifest': 'application/manifest+json; charset=UTF-8',
   '.m3u': 'audio/x-mpegurl; charset=UTF-8',
-  '.m3u8': 'application/vnd.apple.mpegurl'
+  '.m3u8': 'application/vnd.apple.mpegurl',
+  '.mpd': 'application/dash+xml',
+  '.m4s': 'video/iso.segment',
+  '.dash': 'video/mp4'
 };
 
 // Stream Proxy handler to bypass CORS, geo-restrictions, and mixed-content blocks safely

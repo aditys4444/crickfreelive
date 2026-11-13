@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { CRICKET_CHANNELS, CATEGORIES } from '../src/data/cricketChannels.js';
-import { FEATURED_MATCHES } from '../src/data/liveMatches.js';
+import { UPCOMING_BANNERS } from '../src/data/liveMatches.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +22,7 @@ const apiPayload = {
   totalServers: CRICKET_CHANNELS.reduce((acc, c) => acc + c.servers.length, 0),
   categories: CATEGORIES,
   channels: CRICKET_CHANNELS,
-  featuredMatches: FEATURED_MATCHES
+  featuredMatches: UPCOMING_BANNERS
 };
 
 fs.writeFileSync(path.join(publicDir, 'channels.json'), JSON.stringify(apiPayload, null, 2), 'utf8');

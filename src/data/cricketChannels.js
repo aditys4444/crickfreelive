@@ -124,7 +124,44 @@ export const CRICKET_CHANNELS = [
   },
 
   // ==========================================
-  // 4. SONY SPORTS TEN 5 HD (SONY SIX ACTION)
+  // 4. SONY SPORTS TEN 4 HD (TAMIL & TELUGU)
+  // ==========================================
+  {
+    id: "sony-sports-ten-4-hd",
+    name: "Sony Sports Ten 4 HD",
+    shortName: "Sony Sports Ten 4 HD",
+    network: "Sony Sports",
+    category: "sony-sports",
+    language: "Tamil / Telugu",
+    quality: "1080p HD",
+    badge: "SONY TEN 4",
+    isPopular: false,
+    isCricketPrimary: true,
+    logo: "public/logos/sony-ten4.svg",
+    currentProgram: "Live Cricket, Regional Sports Tournaments & ATP Tennis in Tamil & Telugu",
+    description: "Sony Sports dedicated South regional channel broadcasting marquee cricket and world sports in Tamil and Telugu.",
+    servers: [
+      {
+        id: "ten4-srv1",
+        name: "Server 1 (Regional Match Line 1080p)",
+        url: "/proxy?url=https%3A%2F%2Freal-vk.proxy.nellaiiptv.com%2FSDMEDIA%2Findex.m3u8",
+        status: "active",
+        bitrate: "1080p Full HD",
+        ping: "18ms"
+      },
+      {
+        id: "ten4-srv2",
+        name: "Server 2 (Fast Relay Line)",
+        url: "https://real-vk.proxy.nellaiiptv.com/SDMEDIA/index.m3u8",
+        status: "active",
+        bitrate: "1080p Direct",
+        ping: "21ms"
+      }
+    ]
+  },
+
+  // ==========================================
+  // 5. SONY SPORTS TEN 5 HD (SONY SIX ACTION)
   // ==========================================
   {
     id: "sony-sports-ten-5-hd",

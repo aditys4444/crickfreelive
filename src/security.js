@@ -112,11 +112,14 @@ export function isSafeProxyUrl(targetUrl) {
       return false;
     }
 
-    // 6. Ensure target is a streaming or media resource (m3u8, ts, key, or valid streaming path)
+    // 6. Ensure target is a streaming or media resource (m3u8, mpd, ts, m4s, key, or valid streaming path)
     const pathname = parsed.pathname.toLowerCase();
     const isStreamResource = 
       pathname.includes('.m3u8') ||
+      pathname.includes('.mpd') ||
       pathname.includes('.ts') ||
+      pathname.includes('.m4s') ||
+      pathname.includes('.dash') ||
       pathname.includes('.m3u') ||
       pathname.includes('.key') ||
       pathname.includes('.aac') ||
@@ -124,7 +127,9 @@ export function isSafeProxyUrl(targetUrl) {
       pathname.includes('live') ||
       pathname.includes('stream') ||
       pathname.includes('hls') ||
+      pathname.includes('bpk-tv') ||
       parsed.search.includes('.m3u8') ||
+      parsed.search.includes('.mpd') ||
       parsed.search.includes('.ts');
 
     if (!isStreamResource) {
