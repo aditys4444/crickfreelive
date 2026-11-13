@@ -538,13 +538,17 @@ class CrickFreeApp {
     };
     this.video.addEventListener('error', this.boundVideoError);
 
-    // Watchdog Timer: give HLS sufficient time to fetch manifest, AES-128 key & decrypt initial segment (12s)
+    // Watchdog Timer: give HLS sufficient time to fetch manifest, AES-128 key & decrypt initial segment (15s)
     this.playbackWatchdog = setTimeout(() => {
+      // If video is paused (e.g. mobile waiting for user tap/interaction), do not auto-failover
+      if (this.video && this.video.paused) {
+        return;
+      }
       if (this.video && this.video.readyState < 2 && !this.isPlayingSuccessfully) {
         console.warn(`[CrickFree] Watchdog triggered: Server ${this.currentServerIndex + 1} stalled/unreachable`);
         this.switchToNextServer('Connection timeout');
       }
-    }, 12000);
+    }, 15000);
 
     const isDash = streamUrl.toLowerCase().includes('.mpd') || server.type === 'dash';
 
@@ -586,23 +590,25 @@ class CrickFreeApp {
         backBufferLength: 60,
         maxBufferLength: 30,
         maxMaxBufferLength: 60,
-        manifestLoadingTimeOut: 6000,
-        manifestLoadingMaxRetry: 1,
-        levelLoadingTimeOut: 6000,
-        levelLoadingMaxRetry: 1,
-        fragLoadingTimeOut: 6000,
-        fragLoadingMaxRetry: 1
+        manifestLoadingTimeOut: 15000,
+        manifestLoadingMaxRetry: 3,
+        levelLoadingTimeOut: 15000,
+        levelLoadingMaxRetry: 3,
+        fragLoadingTimeOut: 20000,
+        fragLoadingMaxRetry: 3
       });
 
       this.hls.loadSource(streamUrl);
       this.hls.attachMedia(this.video);
 
       this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        this.video.muted = false;
-        this.video.play().catch(() => {
-          this.video.muted = true;
-          this.video.play().catch(() => {});
-        });
+        const playPromise = this.video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            this.video.muted = true;
+            this.video.play().catch(() => {});
+          });
+        }
       });
 
       this.hls.on(Hls.Events.ERROR, (event, data) => {
