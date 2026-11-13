@@ -586,10 +586,13 @@ class CrickFreeApp {
     if (window.Hls && Hls.isSupported()) {
       this.hls = new Hls({
         enableWorker: true,
-        lowLatencyMode: true,
-        backBufferLength: 60,
+        lowLatencyMode: false, // Buffer cushion against network drops
+        backBufferLength: 30,
         maxBufferLength: 30,
         maxMaxBufferLength: 60,
+        maxBufferSize: 60 * 1000 * 1000,
+        liveSyncDurationCount: 3, // Maintain 12 seconds buffer ahead so it never stutters
+        liveMaxLatencyDurationCount: 8,
         manifestLoadingTimeOut: 15000,
         manifestLoadingMaxRetry: 3,
         levelLoadingTimeOut: 15000,

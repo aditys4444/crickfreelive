@@ -454,6 +454,26 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Adaptive Multi-Bitrate Master Playlist for Sony Sports Ten 3 HD
+  if (pathname === '/sony-ten3-adaptive.m3u8' || pathname === '/api/sony-ten3-adaptive.m3u8') {
+    const adaptiveM3u8 = `#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-STREAM-INF:BANDWIDTH=900000,AVERAGE-BANDWIDTH=850000,RESOLUTION=1280x720,FRAME-RATE=25.000,NAME="720p HD (Smooth & Fast)"
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_900.m3u8
+#EXT-X-STREAM-INF:BANDWIDTH=2000000,AVERAGE-BANDWIDTH=1900000,RESOLUTION=1920x1080,FRAME-RATE=50.000,NAME="1080p HD (Balanced)"
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_2000.m3u8
+#EXT-X-STREAM-INF:BANDWIDTH=3500000,AVERAGE-BANDWIDTH=3400000,RESOLUTION=1920x1080,FRAME-RATE=50.000,NAME="1080p Full HD (Ultra)"
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_3500.m3u8
+`;
+    res.writeHead(200, {
+      'Content-Type': 'application/vnd.apple.mpegurl',
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'no-cache, no-store'
+    });
+    res.end(adaptiveM3u8);
+    return;
+  }
+
   // Admin Page: /admin or /admin/update-token
   if (pathname === '/admin' || pathname === '/admin/update-token') {
     if (req.method === 'POST') {

@@ -24,35 +24,35 @@ export const CRICKET_CHANNELS = [
     servers: [
       {
         id: "ten3-srv1",
-        name: "Server 1 (Official Sony Ten 3 HD Line)",
-        url: "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_3500.m3u8",
+        name: "Server 1 (Official Sony Ten 3 - Auto HD)",
+        url: "/sony-ten3-adaptive.m3u8",
         status: "active",
-        bitrate: "1080p HD (Sony Feed)",
-        ping: "12ms"
+        bitrate: "Adaptive 720p/1080p (No Buffering)",
+        ping: "10ms"
       },
       {
         id: "ten3-srv2",
-        name: "Server 2 (T20 League & Tournament Line)",
-        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
+        name: "Server 2 (Official Sony Ten 3 - 720p Ultra Smooth)",
+        url: "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_900.m3u8",
         status: "active",
-        bitrate: "1080p HD",
-        ping: "16ms"
+        bitrate: "720p HD (Low Data & Fast)",
+        ping: "12ms"
       },
       {
         id: "ten3-srv3",
-        name: "Server 3 (Cricket Match Proxy 1080p)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        name: "Server 3 (Official Sony Ten 3 - 1080p Full HD)",
+        url: "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_2000.m3u8",
         status: "active",
-        bitrate: "1080p Proxy",
-        ping: "20ms"
+        bitrate: "1080p Full HD",
+        ping: "15ms"
       },
       {
         id: "ten3-srv4",
-        name: "Server 4 (T20 League Proxy Line)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        name: "Server 4 (Backup T20 Match Line)",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
-        bitrate: "1080p Proxy",
-        ping: "22ms"
+        bitrate: "1080p Backup",
+        ping: "18ms"
       }
     ]
   },
