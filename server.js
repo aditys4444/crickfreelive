@@ -16,6 +16,25 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+let currentSonyToken = 'hdntl=exp=1794591697~acl=%2f*~id=08618765184985467156334867388948~data=hdntl~hmac=61ee8b9f8402d1b764effb768511573efefe72278c6f62ac099d418983a801e2';
+let tokenExpiresAt = 1794591697;
+
+function loadSavedToken() {
+  try {
+    const tokenFile = path.join(__dirname, 'data', 'token.json');
+    if (fs.existsSync(tokenFile)) {
+      const saved = JSON.parse(fs.readFileSync(tokenFile, 'utf8'));
+      if (saved.token) {
+        currentSonyToken = saved.token;
+        tokenExpiresAt = saved.expiresAt || 0;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not read saved token:', e.message);
+  }
+}
+loadSavedToken();
+
 let cachedBanners = null;
 let lastBannersFetch = 0;
 
@@ -237,7 +256,7 @@ function proxyStream(targetUrl, req, res) {
     };
 
     if (parsed.hostname.includes('slivcdn.com')) {
-      headers['Cookie'] = 'hdntl=exp=1794591697~acl=%2f*~id=08618765184985467156334867388948~data=hdntl~hmac=61ee8b9f8402d1b764effb768511573efefe72278c6f62ac099d418983a801e2';
+      headers['Cookie'] = currentSonyToken;
     }
 
     if (req.headers.range) {
@@ -432,6 +451,187 @@ const server = http.createServer(async (req, res) => {
     }
 
     proxyStream(targetUrl, req, res);
+    return;
+  }
+
+  // Admin Page: /admin or /admin/update-token
+  if (pathname === '/admin' || pathname === '/admin/update-token') {
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', () => {
+        try {
+          let tokenStr = body.trim();
+          if (tokenStr.startsWith('{')) {
+            const parsed = JSON.parse(tokenStr);
+            tokenStr = parsed.hdntl || parsed.token || '';
+          }
+          if (!tokenStr.includes('hdntl=')) {
+            if (tokenStr.includes('exp=')) {
+              tokenStr = 'hdntl=' + tokenStr.replace(/^hdntl=/, '');
+            } else {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ status: 'error', message: 'Invalid token format. Must contain "hdntl=exp=..."' }));
+              return;
+            }
+          }
+
+          const expMatch = tokenStr.match(/exp=(\d+)/);
+          const exp = expMatch ? parseInt(expMatch[1], 10) : Math.floor(Date.now() / 1000) + 36000;
+
+          currentSonyToken = tokenStr;
+          tokenExpiresAt = exp;
+
+          const dataDir = path.join(__dirname, 'data');
+          if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+          fs.writeFileSync(path.join(dataDir, 'token.json'), JSON.stringify({
+            token: tokenStr,
+            expiresAt: exp,
+            updatedAt: new Date().toISOString()
+          }, null, 2));
+
+          console.log('[Admin] Sony Token updated successfully! Expires at:', new Date(exp * 1000).toLocaleString());
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            status: 'success',
+            message: 'Sony Token updated successfully!',
+            expiresAt: exp,
+            expiresReadable: new Date(exp * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+          }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ status: 'error', message: err.message }));
+        }
+      });
+      return;
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    const isExpired = now >= tokenExpiresAt;
+    const remainingSec = Math.max(0, tokenExpiresAt - now);
+    const remHours = Math.floor(remainingSec / 3600);
+    const remMin = Math.floor((remainingSec % 3600) / 60);
+    const expDateStr = new Date(tokenExpiresAt * 1000).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrickFree - Stream Token Control Center</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: #0b0f19; color: #f3f4f6; min-height: 100vh; padding: 24px; display: flex; justify-content: center; align-items: flex-start; }
+    .card { background: #111827; border: 1px solid #1f2937; border-radius: 16px; width: 100%; max-width: 640px; padding: 28px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }
+    h1 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    p.sub { font-size: 14px; color: #9ca3af; margin-bottom: 24px; }
+    .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+    .status-active { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-expired { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .info-box { background: #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 24px; font-size: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .info-row { display: flex; justify-content: space-between; align-items: center; }
+    .info-label { color: #94a3b8; }
+    .info-val { font-weight: 600; color: #f8fafc; }
+    label { font-size: 14px; font-weight: 600; color: #e2e8f0; margin-bottom: 8px; display: block; }
+    textarea { width: 100%; height: 120px; background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 12px; color: #f8fafc; font-size: 13px; font-family: monospace; resize: vertical; margin-bottom: 16px; }
+    textarea:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); }
+    button { background: #2563eb; color: #fff; border: none; border-radius: 10px; padding: 14px 20px; font-size: 15px; font-weight: 600; width: 100%; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+    button:hover { background: #1d4ed8; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .toast { display: none; margin-top: 16px; padding: 12px 16px; border-radius: 8px; font-size: 14px; text-align: center; }
+    .toast-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669; }
+    .toast-error { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #dc2626; }
+    .back-link { display: inline-block; margin-top: 20px; color: #60a5fa; font-size: 14px; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🏏 Sony Sports Stream Token Manager</h1>
+    <p class="sub">Update your live stream authentication cookie instantly from any device.</p>
+
+    <div class="status-badge ${isExpired ? 'status-expired' : 'status-active'}">
+      <span class="dot"></span>
+      ${isExpired ? 'TOKEN EXPIRED' : 'TOKEN ACTIVE & STREAMING'}
+    </div>
+
+    <div class="info-box">
+      <div class="info-row">
+        <span class="info-label">Channel</span>
+        <span class="info-val">Sony Sports Ten 3 HD (1080p)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Expires At (IST)</span>
+        <span class="info-val" id="expDisplay">${expDateStr}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Time Remaining</span>
+        <span class="info-val" id="remDisplay">${isExpired ? '0m (Expired)' : remHours + 'h ' + remMin + 'm'}</span>
+      </div>
+    </div>
+
+    <label for="tokenInput">Paste Fresh Token or Full Token JSON:</label>
+    <textarea id="tokenInput" placeholder='Paste hdntl=exp=... or {"hdntl":"...", ...}'></textarea>
+
+    <button id="saveBtn" onclick="updateToken()">
+      <span>⚡ Save & Activate Token Immediately</span>
+    </button>
+
+    <div id="toast" class="toast"></div>
+
+    <a href="/" class="back-link">← Return to Player</a>
+  </div>
+
+  <script>
+    async function updateToken() {
+      const val = document.getElementById('tokenInput').value.trim();
+      const toast = document.getElementById('toast');
+      const btn = document.getElementById('saveBtn');
+
+      if (!val) {
+        showToast('Please paste a token before saving.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      try {
+        const res = await fetch('/admin/update-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: val
+        });
+        const data = await res.json();
+        if (data.status === 'success') {
+          showToast('✅ ' + data.message + ' Valid until ' + data.expiresReadable, 'success');
+          document.getElementById('expDisplay').textContent = data.expiresReadable;
+          setTimeout(() => window.location.reload(), 1500);
+        } else {
+          showToast('❌ ' + (data.message || 'Failed to update token'), 'error');
+        }
+      } catch (err) {
+        showToast('❌ Network error: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>⚡ Save & Activate Token Immediately</span>';
+      }
+    }
+
+    function showToast(msg, type) {
+      const toast = document.getElementById('toast');
+      toast.className = 'toast toast-' + type;
+      toast.textContent = msg;
+      toast.style.display = 'block';
+    }
+  </script>
+</body>
+</html>`;
+
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+    res.end(html);
     return;
   }
 
