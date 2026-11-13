@@ -84,10 +84,7 @@ class CrickFreeApp {
 
   async syncChannelsFromApi() {
     try {
-      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
-        ? ''
-        : 'https://stream.crickfreelive.online';
-      const res = await fetch(`${apiOrigin}/api/channels?_nocache=` + Date.now());
+      const res = await fetch('/api/channels?_nocache=' + Date.now());
       if (res.ok) {
         const data = await res.json();
         if (data && Array.isArray(data.channels) && data.channels.length > 0) {
@@ -167,10 +164,7 @@ class CrickFreeApp {
 
   async fetchLiveBanners() {
     try {
-      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
-        ? ''
-        : 'https://stream.crickfreelive.online';
-      const res = await fetch(`${apiOrigin}/api/live-matches`);
+      const res = await fetch('/api/live-matches');
       if (!res.ok) return;
       const data = await res.json();
       if (data && Array.isArray(data.banners) && data.banners.length > 0) {
@@ -439,6 +433,24 @@ class CrickFreeApp {
       return;
     }
 
+    // Fast-Failover: If local proxy is unreachable (e.g. PC is OFF), jump straight to independent 24/7 backup line (Server 4)
+    const currentServer = channel.servers[this.currentServerIndex];
+    const isLocalProxy = currentServer && currentServer.url.startsWith('/');
+    const isNetworkStall = reason.includes('manifestLoadError') || reason.includes('networkError') || reason.includes('Connection timeout') || reason.includes('Error');
+
+    if (isLocalProxy && isNetworkStall) {
+      const backupIdx = channel.servers.findIndex(s => !s.url.startsWith('/'));
+      if (backupIdx !== -1 && backupIdx !== this.currentServerIndex) {
+        this.failoverAttempts = 1;
+        console.warn(`[CrickFree] PC offline. Fast-switching from Server ${this.currentServerIndex + 1} -> Server ${backupIdx + 1} (${channel.servers[backupIdx].name})`);
+        this.showToast(`Server 1 offline (PC asleep). Switched to 24/7 Match Line.`);
+        this.failoverTimeout = setTimeout(() => {
+          this.playChannel(channel, backupIdx, false);
+        }, 200);
+        return;
+      }
+    }
+
     if (this.failoverAttempts < channel.servers.length - 1) {
       this.failoverAttempts++;
       const nextIdx = (this.currentServerIndex + 1) % channel.servers.length;
@@ -477,13 +489,7 @@ class CrickFreeApp {
 
     if (!this.video) return;
 
-    let streamUrl = server.url;
-    if (streamUrl.startsWith('/')) {
-      const isLocal = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
-      if (!isLocal) {
-        streamUrl = `https://stream.crickfreelive.online${streamUrl}`;
-      }
-    }
+    const streamUrl = server.url;
 
     console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1} [${server.name || 'HD'}]: ${streamUrl}`);
 
@@ -551,7 +557,8 @@ class CrickFreeApp {
     };
     this.video.addEventListener('error', this.boundVideoError);
 
-    // Watchdog Timer: give HLS sufficient time to fetch manifest, AES-128 key & decrypt initial segment (15s)
+    // Watchdog Timer: give HLS sufficient time to fetch manifest, AES-128 key & decrypt initial segment (7s on proxy, 15s on direct CDNs)
+    const watchdogTimeoutMs = server.url.startsWith('/') ? 7000 : 15000;
     this.playbackWatchdog = setTimeout(() => {
       // If video is paused (e.g. mobile waiting for user tap/interaction), do not auto-failover
       if (this.video && this.video.paused) {
@@ -561,7 +568,7 @@ class CrickFreeApp {
         console.warn(`[CrickFree] Watchdog triggered: Server ${this.currentServerIndex + 1} stalled/unreachable`);
         this.switchToNextServer('Connection timeout');
       }
-    }, 15000);
+    }, watchdogTimeoutMs);
 
     const isDash = streamUrl.toLowerCase().includes('.mpd') || server.type === 'dash';
 
@@ -611,14 +618,14 @@ class CrickFreeApp {
         nudgeOffset: 0.1,
         nudgeMaxRetry: 5,
         startLevel: 0, // Starts immediately with fastest segment for instant 0s buffering
-        manifestLoadingTimeOut: 15000,
-        manifestLoadingMaxRetry: 4,
-        manifestLoadingRetryDelay: 800,
-        levelLoadingTimeOut: 15000,
-        levelLoadingMaxRetry: 4,
-        fragLoadingTimeOut: 20000,
-        fragLoadingMaxRetry: 4,
-        fragLoadingRetryDelay: 800
+        manifestLoadingTimeOut: 6000,
+        manifestLoadingMaxRetry: 1,
+        manifestLoadingRetryDelay: 500,
+        levelLoadingTimeOut: 8000,
+        levelLoadingMaxRetry: 2,
+        fragLoadingTimeOut: 12000,
+        fragLoadingMaxRetry: 2,
+        fragLoadingRetryDelay: 500
       });
 
       this.hls.loadSource(streamUrl);
@@ -649,6 +656,12 @@ class CrickFreeApp {
             return;
           }
         } else if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+          // If the manifest itself fails to load on a local proxy (e.g. PC is offline), jump to backup server immediately
+          const isProxyServer = server && server.url.startsWith('/');
+          if (data.details === 'manifestLoadError' && isProxyServer) {
+            this.switchToNextServer('manifestLoadError');
+            return;
+          }
           if (netErrorRetries < 2) {
             netErrorRetries++;
             console.warn('[CrickFree] Network glitch detected, recovering stream...');
