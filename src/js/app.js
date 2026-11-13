@@ -84,7 +84,10 @@ class CrickFreeApp {
 
   async syncChannelsFromApi() {
     try {
-      const res = await fetch('/api/channels?_nocache=' + Date.now());
+      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
+        ? ''
+        : 'https://stream.crickfreelive.online';
+      const res = await fetch(`${apiOrigin}/api/channels?_nocache=` + Date.now());
       if (res.ok) {
         const data = await res.json();
         if (data && Array.isArray(data.channels) && data.channels.length > 0) {
@@ -164,7 +167,10 @@ class CrickFreeApp {
 
   async fetchLiveBanners() {
     try {
-      const res = await fetch('/api/live-matches');
+      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
+        ? ''
+        : 'https://stream.crickfreelive.online';
+      const res = await fetch(`${apiOrigin}/api/live-matches`);
       if (!res.ok) return;
       const data = await res.json();
       if (data && Array.isArray(data.banners) && data.banners.length > 0) {
@@ -435,11 +441,11 @@ class CrickFreeApp {
 
     // Fast-Failover: If local proxy is unreachable (e.g. PC is OFF), jump straight to independent 24/7 backup line (Server 4)
     const currentServer = channel.servers[this.currentServerIndex];
-    const isLocalProxy = currentServer && currentServer.url.startsWith('/');
+    const isLocalProxy = currentServer && (currentServer.url.startsWith('/') || currentServer.url.includes('stream.crickfreelive.online'));
     const isNetworkStall = reason.includes('manifestLoadError') || reason.includes('networkError') || reason.includes('Connection timeout') || reason.includes('Error');
 
     if (isLocalProxy && isNetworkStall) {
-      const backupIdx = channel.servers.findIndex(s => !s.url.startsWith('/'));
+      const backupIdx = channel.servers.findIndex(s => !s.url.startsWith('/') && !s.url.includes('stream.crickfreelive.online'));
       if (backupIdx !== -1 && backupIdx !== this.currentServerIndex) {
         this.failoverAttempts = 1;
         console.warn(`[CrickFree] PC offline. Fast-switching from Server ${this.currentServerIndex + 1} -> Server ${backupIdx + 1} (${channel.servers[backupIdx].name})`);
@@ -489,7 +495,13 @@ class CrickFreeApp {
 
     if (!this.video) return;
 
-    const streamUrl = server.url;
+    let streamUrl = server.url;
+    if (streamUrl.startsWith('/')) {
+      const isLocal = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
+      if (!isLocal) {
+        streamUrl = `https://stream.crickfreelive.online${streamUrl}`;
+      }
+    }
 
     console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1} [${server.name || 'HD'}]: ${streamUrl}`);
 
@@ -558,7 +570,8 @@ class CrickFreeApp {
     this.video.addEventListener('error', this.boundVideoError);
 
     // Watchdog Timer: give HLS sufficient time to fetch manifest, AES-128 key & decrypt initial segment (7s on proxy, 15s on direct CDNs)
-    const watchdogTimeoutMs = server.url.startsWith('/') ? 7000 : 15000;
+    const isProxyServer = server && (server.url.startsWith('/') || server.url.includes('stream.crickfreelive.online'));
+    const watchdogTimeoutMs = isProxyServer ? 7000 : 15000;
     this.playbackWatchdog = setTimeout(() => {
       // If video is paused (e.g. mobile waiting for user tap/interaction), do not auto-failover
       if (this.video && this.video.paused) {
@@ -657,7 +670,7 @@ class CrickFreeApp {
           }
         } else if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
           // If the manifest itself fails to load on a local proxy (e.g. PC is offline), jump to backup server immediately
-          const isProxyServer = server && server.url.startsWith('/');
+          const isProxyServer = server && (server.url.startsWith('/') || server.url.includes('stream.crickfreelive.online'));
           if (data.details === 'manifestLoadError' && isProxyServer) {
             this.switchToNextServer('manifestLoadError');
             return;

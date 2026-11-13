@@ -154,6 +154,7 @@ export function isHotlinkAllowed(req) {
   const allowedDomains = [
     'crickfreelive.online',
     'www.crickfreelive.online',
+    'pages.dev',
     'localhost',
     '127.0.0.1',
     'trycloudflare.com'
