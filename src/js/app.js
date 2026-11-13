@@ -538,13 +538,13 @@ class CrickFreeApp {
     };
     this.video.addEventListener('error', this.boundVideoError);
 
-    // Watchdog Timer: if stream hasn't started playing within 4.5 seconds, auto-failover
+    // Watchdog Timer: give HLS sufficient time to fetch manifest, AES-128 key & decrypt initial segment (12s)
     this.playbackWatchdog = setTimeout(() => {
       if (this.video && this.video.readyState < 2 && !this.isPlayingSuccessfully) {
         console.warn(`[CrickFree] Watchdog triggered: Server ${this.currentServerIndex + 1} stalled/unreachable`);
         this.switchToNextServer('Connection timeout');
       }
-    }, 4500);
+    }, 12000);
 
     const isDash = streamUrl.toLowerCase().includes('.mpd') || server.type === 'dash';
 
