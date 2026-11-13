@@ -146,9 +146,24 @@ export function isSafeProxyUrl(targetUrl) {
  * Anti-Hotlinking Protection: Prevent external rogue sites from stealing bandwidth
  */
 export function isHotlinkAllowed(req) {
-  const host = req.headers.host;
+  const host = req.headers['x-forwarded-host'] || req.headers.host || '';
   const origin = req.headers.origin;
   const referer = req.headers.referer;
+
+  // Whitelisted friendly domains
+  const allowedDomains = [
+    'crickfreelive.online',
+    'www.crickfreelive.online',
+    'localhost',
+    '127.0.0.1',
+    'trycloudflare.com'
+  ];
+
+  const isDomainAllowed = (targetHost) => {
+    if (!targetHost) return true;
+    const clean = targetHost.toLowerCase().split(':')[0];
+    return allowedDomains.some(d => clean === d || clean.endsWith('.' + d));
+  };
 
   // If no referer/origin, allow (e.g. direct browser player, VLC, mobile apps, curl)
   if (!origin && !referer) {
@@ -159,7 +174,7 @@ export function isHotlinkAllowed(req) {
   if (origin) {
     try {
       const originHost = new URL(origin).host;
-      if (originHost === host || originHost.includes('localhost') || originHost.includes('127.0.0.1')) {
+      if (originHost === host || isDomainAllowed(originHost)) {
         return true;
       }
       // Foreign origin attempting to hotlink stream proxy
@@ -173,7 +188,7 @@ export function isHotlinkAllowed(req) {
   if (referer) {
     try {
       const refererHost = new URL(referer).host;
-      if (refererHost === host || refererHost.includes('localhost') || refererHost.includes('127.0.0.1')) {
+      if (refererHost === host || isDomainAllowed(refererHost)) {
         return true;
       }
       return false;

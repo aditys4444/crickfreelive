@@ -314,6 +314,7 @@ function proxyStream(targetUrl, req, res) {
     }
 
     const proxyReq = mod.get(targetUrl, { headers, agent, timeout: 10000 }, (proxyRes) => {
+      console.log('[Proxy Stream]', targetUrl.slice(0, 70), '-> upstream status:', proxyRes.statusCode);
       // Follow redirects
       if (proxyRes.statusCode >= 300 && proxyRes.statusCode < 400 && proxyRes.headers.location) {
         try {
@@ -454,6 +455,7 @@ function proxyStream(targetUrl, req, res) {
 }
 
 const server = http.createServer(async (req, res) => {
+  console.log('[HTTP INCOMING]', req.method, req.url.slice(0, 80), 'Host:', req.headers.host);
   // 1. Enterprise Security Headers (HSTS, CSP, X-Frame-Options, X-Content-Type-Options)
   const origWriteHead = res.writeHead.bind(res);
   res.writeHead = function(statusCode, headers = {}) {
@@ -800,6 +802,7 @@ const server = http.createServer(async (req, res) => {
     res.end(JSON.stringify({
       status: 'ok',
       service: 'crickfreelive',
+      serverInstance: 'LOCAL_PUNE_WINDOWS_PC',
       uptime: Math.floor(process.uptime()),
       channels: CRICKET_CHANNELS.length,
       timestamp: new Date().toISOString()
