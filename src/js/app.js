@@ -84,9 +84,9 @@ class CrickFreeApp {
 
   async syncChannelsFromApi() {
     try {
-      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
-        ? ''
-        : 'https://stream.crickfreelive.online';
+      const apiOrigin = window.location.hostname.endsWith('pages.dev')
+        ? 'https://www.crickfreelive.online'
+        : '';
       const res = await fetch(`${apiOrigin}/api/channels?_nocache=` + Date.now());
       if (res.ok) {
         const data = await res.json();
@@ -167,9 +167,9 @@ class CrickFreeApp {
 
   async fetchLiveBanners() {
     try {
-      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
-        ? ''
-        : 'https://stream.crickfreelive.online';
+      const apiOrigin = window.location.hostname.endsWith('pages.dev')
+        ? 'https://www.crickfreelive.online'
+        : '';
       const res = await fetch(`${apiOrigin}/api/live-matches`);
       if (!res.ok) return;
       const data = await res.json();
@@ -479,9 +479,8 @@ class CrickFreeApp {
 
     let streamUrl = server.url;
     if (streamUrl.startsWith('/')) {
-      const isLocal = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
-      if (!isLocal) {
-        streamUrl = `https://stream.crickfreelive.online${streamUrl}`;
+      if (window.location.hostname.endsWith('pages.dev')) {
+        streamUrl = `https://www.crickfreelive.online${streamUrl}`;
       }
     }
 
