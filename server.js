@@ -364,7 +364,7 @@ const server = http.createServer(async (req, res) => {
       headers['Access-Control-Allow-Origin'] = '*';
       headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS';
       headers['Access-Control-Allow-Headers'] = 'Content-Type, Range, Authorization';
-      headers['Content-Security-Policy'] = "default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; media-src 'self' blob: https: http:; connect-src 'self' https: http: blob:; object-src 'none'; base-uri 'self';";
+      headers['Content-Security-Policy'] = "default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; media-src 'self' blob: https: http: data:; connect-src 'self' https: http: blob:; object-src 'none'; base-uri 'self';";
       
       const proto = req.headers['x-forwarded-proto'];
       if (proto === 'https' || req.socket.encrypted) {

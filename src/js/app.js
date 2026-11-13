@@ -15,7 +15,12 @@ class CrickFreeApp {
     this.hls = null;
     this.shakaPlayer = null;
     this.failoverTimeout = null;
+    this.playbackWatchdog = null;
     this.failoverAttempts = 0;
+    this.isPlayingSuccessfully = false;
+    this.boundVideoError = null;
+    this.boundVideoPlaying = null;
+    this.boundVideoTimeUpdate = null;
     this.activeCategory = 'all';
 
     // Hero Carousel State
@@ -207,11 +212,9 @@ class CrickFreeApp {
   }
 
   showLandingPage() {
-    if (this.failoverTimeout) {
-      clearTimeout(this.failoverTimeout);
-      this.failoverTimeout = null;
-    }
+    this.clearWatchdogsAndTimers();
     this.failoverAttempts = 0;
+    this.isPlayingSuccessfully = false;
 
     // Clear hash URL
     try {
@@ -220,6 +223,18 @@ class CrickFreeApp {
 
     // Cleanly stop video & destroy HLS
     if (this.video) {
+      if (this.boundVideoError) {
+        this.video.removeEventListener('error', this.boundVideoError);
+        this.boundVideoError = null;
+      }
+      if (this.boundVideoPlaying) {
+        this.video.removeEventListener('playing', this.boundVideoPlaying);
+        this.boundVideoPlaying = null;
+      }
+      if (this.boundVideoTimeUpdate) {
+        this.video.removeEventListener('timeupdate', this.boundVideoTimeUpdate);
+        this.boundVideoTimeUpdate = null;
+      }
       this.video.pause();
       this.video.removeAttribute('src');
       this.video.load();
@@ -232,6 +247,13 @@ class CrickFreeApp {
         this.hls.destroy();
       } catch (e) {}
       this.hls = null;
+    }
+
+    if (this.shakaPlayer) {
+      try {
+        this.shakaPlayer.destroy();
+      } catch (e) {}
+      this.shakaPlayer = null;
     }
 
     // Toggle views
@@ -390,20 +412,52 @@ class CrickFreeApp {
   }
 
   // ==============================================================
-  // VIDEO STREAMING ENGINE
+  // VIDEO STREAMING ENGINE & RELIABLE MULTI-SERVER FAILOVER
   // ==============================================================
-  playChannel(channel, serverIdx = 0, isManual = true) {
+  clearWatchdogsAndTimers() {
+    if (this.playbackWatchdog) {
+      clearTimeout(this.playbackWatchdog);
+      this.playbackWatchdog = null;
+    }
     if (this.failoverTimeout) {
       clearTimeout(this.failoverTimeout);
       this.failoverTimeout = null;
     }
+  }
 
-    if (isManual || this.currentChannel.id !== channel.id) {
+  switchToNextServer(reason = '') {
+    this.clearWatchdogsAndTimers();
+    const channel = this.currentChannel;
+    if (!channel || !channel.servers || channel.servers.length <= 1) {
+      this.showToast(`${channel?.name || 'Channel'} is buffering. Please wait...`);
+      return;
+    }
+
+    if (this.failoverAttempts < channel.servers.length - 1) {
+      this.failoverAttempts++;
+      const nextIdx = (this.currentServerIndex + 1) % channel.servers.length;
+      console.warn(`[CrickFree] Auto-failover: Server ${this.currentServerIndex + 1} -> Server ${nextIdx + 1} (${reason})`);
+      this.showToast(`Auto-switching to Server ${nextIdx + 1}...`);
+
+      this.failoverTimeout = setTimeout(() => {
+        this.playChannel(channel, nextIdx, false);
+      }, 400);
+    } else {
+      console.warn(`[CrickFree] Reached max failover attempts for ${channel.name}`);
+      this.showToast(`${channel.name} connecting... Please click another server below.`);
+    }
+  }
+
+  playChannel(channel, serverIdx = 0, isManual = true) {
+    this.clearWatchdogsAndTimers();
+
+    if (isManual || (this.currentChannel && this.currentChannel.id !== channel.id)) {
       this.failoverAttempts = 0;
     }
 
+    this.isPlayingSuccessfully = false;
     this.currentChannel = channel;
-    this.currentServerIndex = serverIdx >= channel.servers.length ? 0 : serverIdx;
+    this.currentServerIndex = (serverIdx >= 0 && serverIdx < channel.servers.length) ? serverIdx : 0;
     const server = channel.servers[this.currentServerIndex];
 
     if (this.channelNameEl) this.channelNameEl.textContent = channel.name;
@@ -418,7 +472,7 @@ class CrickFreeApp {
     if (!this.video) return;
 
     const streamUrl = server.url;
-    console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1}`);
+    console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1} [${server.name || 'HD'}]: ${streamUrl}`);
 
     // Tear down active player instances
     if (this.hls) {
@@ -437,12 +491,60 @@ class CrickFreeApp {
       this.shakaPlayer = null;
     }
 
+    // Remove previous video element listeners
+    if (this.boundVideoError) {
+      this.video.removeEventListener('error', this.boundVideoError);
+      this.boundVideoError = null;
+    }
+    if (this.boundVideoPlaying) {
+      this.video.removeEventListener('playing', this.boundVideoPlaying);
+      this.boundVideoPlaying = null;
+    }
+    if (this.boundVideoTimeUpdate) {
+      this.video.removeEventListener('timeupdate', this.boundVideoTimeUpdate);
+      this.boundVideoTimeUpdate = null;
+    }
+
     // Reset video element
     try {
       this.video.pause();
       this.video.removeAttribute('src');
       this.video.load();
     } catch (e) {}
+
+    // Attach fresh video element monitoring
+    this.boundVideoPlaying = () => {
+      this.isPlayingSuccessfully = true;
+      this.clearWatchdogsAndTimers();
+      this.failoverAttempts = 0;
+      console.log(`[CrickFree] Channel ${channel.name} playing on Server ${this.currentServerIndex + 1} (ready: ${this.video.readyState})`);
+    };
+    this.video.addEventListener('playing', this.boundVideoPlaying);
+
+    this.boundVideoTimeUpdate = () => {
+      if (this.video && this.video.currentTime > 0.1) {
+        this.isPlayingSuccessfully = true;
+        if (this.playbackWatchdog) {
+          clearTimeout(this.playbackWatchdog);
+          this.playbackWatchdog = null;
+        }
+      }
+    };
+    this.video.addEventListener('timeupdate', this.boundVideoTimeUpdate);
+
+    this.boundVideoError = (err) => {
+      console.warn(`[CrickFree] Native video element error on Server ${this.currentServerIndex + 1}:`, err);
+      this.switchToNextServer('Video element error');
+    };
+    this.video.addEventListener('error', this.boundVideoError);
+
+    // Watchdog Timer: if stream hasn't started playing within 4.5 seconds, auto-failover
+    this.playbackWatchdog = setTimeout(() => {
+      if (this.video && this.video.readyState < 2 && !this.isPlayingSuccessfully) {
+        console.warn(`[CrickFree] Watchdog triggered: Server ${this.currentServerIndex + 1} stalled/unreachable`);
+        this.switchToNextServer('Connection timeout');
+      }
+    }, 4500);
 
     const isDash = streamUrl.toLowerCase().includes('.mpd') || server.type === 'dash';
 
@@ -471,39 +573,31 @@ class CrickFreeApp {
           });
         }).catch((err) => {
           console.warn(`[CrickFree] Shaka DASH error on Server ${this.currentServerIndex + 1}:`, err);
-          if (this.failoverAttempts < channel.servers.length - 1) {
-            this.failoverAttempts++;
-            const nextIdx = (this.currentServerIndex + 1) % channel.servers.length;
-            this.showToast(`Switching to Server ${nextIdx + 1}...`);
-            this.failoverTimeout = setTimeout(() => {
-              this.playChannel(channel, nextIdx, false);
-            }, 800);
-          } else {
-            this.showToast(`${channel.name} stream is connecting. Please switch servers.`);
-          }
+          this.switchToNextServer('DASH stream error');
         });
         return;
       }
     }
 
-    if (Hls.isSupported()) {
+    if (window.Hls && Hls.isSupported()) {
       this.hls = new Hls({
         enableWorker: true,
         lowLatencyMode: true,
         backBufferLength: 60,
         maxBufferLength: 30,
         maxMaxBufferLength: 60,
-        manifestLoadingTimeOut: 10000,
-        manifestLoadingMaxRetry: 2,
-        levelLoadingTimeOut: 10000,
-        levelLoadingMaxRetry: 2
+        manifestLoadingTimeOut: 6000,
+        manifestLoadingMaxRetry: 1,
+        levelLoadingTimeOut: 6000,
+        levelLoadingMaxRetry: 1,
+        fragLoadingTimeOut: 6000,
+        fragLoadingMaxRetry: 1
       });
 
       this.hls.loadSource(streamUrl);
       this.hls.attachMedia(this.video);
 
       this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        this.failoverAttempts = 0;
         this.video.muted = false;
         this.video.play().catch(() => {
           this.video.muted = true;
@@ -514,32 +608,27 @@ class CrickFreeApp {
       this.hls.on(Hls.Events.ERROR, (event, data) => {
         if (!data.fatal) return;
 
-        console.warn(`[CrickFree] Playback issue on Server ${this.currentServerIndex + 1}:`, data.type);
+        console.warn(`[CrickFree] HLS fatal error on Server ${this.currentServerIndex + 1}:`, data.type, data.details);
 
         if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
-          this.hls.recoverMediaError();
-          return;
-        }
-
-        if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
-          if (this.failoverAttempts < channel.servers.length - 1) {
-            this.failoverAttempts++;
-            const nextIdx = (this.currentServerIndex + 1) % channel.servers.length;
-            this.showToast(`Switching to Server ${nextIdx + 1}...`);
-
-            this.failoverTimeout = setTimeout(() => {
-              this.playChannel(channel, nextIdx, false);
-            }, 800);
-          } else {
-            this.showToast(`${channel.name} feed is currently refreshing. Please select another server below.`);
+          try {
+            this.hls.recoverMediaError();
+            return;
+          } catch (e) {
+            this.switchToNextServer('Unrecoverable media error');
+            return;
           }
         }
+
+        this.switchToNextServer(data.details || 'Network stream error');
       });
     } else if (this.video.canPlayType('application/vnd.apple.mpegurl')) {
       this.video.src = streamUrl;
       this.video.addEventListener('loadedmetadata', () => {
         this.video.play().catch(() => {});
       });
+    } else {
+      this.switchToNextServer('Browser unsupported');
     }
   }
 
@@ -547,7 +636,7 @@ class CrickFreeApp {
     if (!this.serverButtonsContainer) return;
 
     this.serverButtonsContainer.innerHTML = channel.servers.map((srv, idx) => `
-      <button class="server-pill ${idx === this.currentServerIndex ? 'active' : ''}" data-idx="${idx}">
+      <button class="server-pill ${idx === this.currentServerIndex ? 'active' : ''}" data-idx="${idx}" title="${srv.name}">
         Server ${idx + 1}
       </button>
     `).join('');
@@ -555,6 +644,11 @@ class CrickFreeApp {
     this.serverButtonsContainer.querySelectorAll('.server-pill').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const idx = parseInt(e.currentTarget.dataset.idx, 10);
+        if (idx === this.currentServerIndex && this.isPlayingSuccessfully) {
+          return;
+        }
+        this.clearWatchdogsAndTimers();
+        this.failoverAttempts = 0;
         this.playChannel(channel, idx, true);
         this.showToast(`Switched to Server ${idx + 1}`);
       });
