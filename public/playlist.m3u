@@ -1,29 +1,29 @@
 #EXTM3U
 #PLAYLIST:CrickFreeLive - Live Cricket & Sports Streams
 
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 1 (Hindi Match Line 1080p)]
-https://cdn.pishow.tv/ott/live/1161/master.m3u8
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 1 (Official Sony Ten 3 HD Line)]
+/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_3500.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 2 (Mumbai 60fps Live)]
-https://mumbai-edge.smartplaytv.in/DDSportsHD/index.m3u8
-
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 3 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 4 (Fast Proxy Line)]
-/proxy?url=https%3A%2F%2Fcdn.pishow.tv%2Fott%2Flive%2F1161%2Fmaster.m3u8
-
-#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 1 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 2 (International Sports 1080p)]
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 2 (T20 League & Tournament Line)]
 https://cdn.rabta.stream/M-Sports/index.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 3 (Cricket Gold 1080p)]
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 3 (Cricket Match Proxy 1080p)]
+/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
+
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 4 (T20 League Proxy Line)]
+/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
+
+#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 1 (International Sports HD)]
+https://cdn.rabta.stream/M-Sports/index.m3u8
+
+#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 2 (Cricket Gold 1080p)]
 https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 4 (Secure Proxy Line)]
-/proxy?url=https%3A%2F%2Fd3qs3d2rkhfqrt.cloudfront.net%2Fout%2Fv1%2Fb17adfe543354fdd8d189b110617cddd%2Findex.m3u8
+#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 3 (International Sports Proxy)]
+/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
+
+#EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 4 (Cricket Gold Proxy)]
+/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
 
 #EXTINF:-1 tvg-id="sony-sports-ten-2-hd" tvg-name="Sony Sports Ten 2 HD" tvg-logo="public/logos/sony-ten2.svg" group-title="Sony Sports",Sony Sports Ten 2 HD [Server 1 (SmartPlay HD 1080p)]
 https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8
@@ -31,23 +31,23 @@ https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8
 #EXTINF:-1 tvg-id="sony-sports-ten-2-hd" tvg-name="Sony Sports Ten 2 HD" tvg-logo="public/logos/sony-ten2.svg" group-title="Sony Sports",Sony Sports Ten 2 HD [Server 2 (CloudFront Global Sports)]
 https://d1t5afz6qed3xk.cloudfront.net/Unbeaten.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-2-hd" tvg-name="Sony Sports Ten 2 HD" tvg-logo="public/logos/sony-ten2.svg" group-title="Sony Sports",Sony Sports Ten 2 HD [Server 3 (CloudFront Live 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="sony-sports-ten-2-hd" tvg-name="Sony Sports Ten 2 HD" tvg-logo="public/logos/sony-ten2.svg" group-title="Sony Sports",Sony Sports Ten 2 HD [Server 4 (Edge Proxy 1080p)]
+#EXTINF:-1 tvg-id="sony-sports-ten-2-hd" tvg-name="Sony Sports Ten 2 HD" tvg-logo="public/logos/sony-ten2.svg" group-title="Sony Sports",Sony Sports Ten 2 HD [Server 3 (SmartPlay Edge Proxy)]
 /proxy?url=https%3A%2F%2Fmumbai-edge.smartplaytv.in%2FTennis2%2Findex.m3u8
 
+#EXTINF:-1 tvg-id="sony-sports-ten-2-hd" tvg-name="Sony Sports Ten 2 HD" tvg-logo="public/logos/sony-ten2.svg" group-title="Sony Sports",Sony Sports Ten 2 HD [Server 4 (Unbeaten Sports Proxy)]
+/proxy?url=https%3A%2F%2Fd1t5afz6qed3xk.cloudfront.net%2FUnbeaten.m3u8
+
 #EXTINF:-1 tvg-id="sony-sports-ten-4-hd" tvg-name="Sony Sports Ten 4 HD" tvg-logo="public/logos/sony-ten4.svg" group-title="Sony Sports",Sony Sports Ten 4 HD [Server 1 (Regional Feed 1080p)]
-https://cdn.pishow.tv/ott/live/1161/master.m3u8
+https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-4-hd" tvg-name="Sony Sports Ten 4 HD" tvg-logo="public/logos/sony-ten4.svg" group-title="Sony Sports",Sony Sports Ten 4 HD [Server 2 (SmartPlay Edge 60fps)]
-https://mumbai-edge.smartplaytv.in/DDSportsHD/index.m3u8
+#EXTINF:-1 tvg-id="sony-sports-ten-4-hd" tvg-name="Sony Sports Ten 4 HD" tvg-logo="public/logos/sony-ten4.svg" group-title="Sony Sports",Sony Sports Ten 4 HD [Server 2 (Rabta Sports Line)]
+https://cdn.rabta.stream/M-Sports/index.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-4-hd" tvg-name="Sony Sports Ten 4 HD" tvg-logo="public/logos/sony-ten4.svg" group-title="Sony Sports",Sony Sports Ten 4 HD [Server 3 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
+#EXTINF:-1 tvg-id="sony-sports-ten-4-hd" tvg-name="Sony Sports Ten 4 HD" tvg-logo="public/logos/sony-ten4.svg" group-title="Sony Sports",Sony Sports Ten 4 HD [Server 3 (Regional Feed Proxy)]
+/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-4-hd" tvg-name="Sony Sports Ten 4 HD" tvg-logo="public/logos/sony-ten4.svg" group-title="Sony Sports",Sony Sports Ten 4 HD [Server 4 (Regional Proxy Line)]
-/proxy?url=https%3A%2F%2Fcdn.pishow.tv%2Fott%2Flive%2F1161%2Fmaster.m3u8
+#EXTINF:-1 tvg-id="sony-sports-ten-4-hd" tvg-name="Sony Sports Ten 4 HD" tvg-logo="public/logos/sony-ten4.svg" group-title="Sony Sports",Sony Sports Ten 4 HD [Server 4 (Rabta Sports Proxy)]
+/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
 
 #EXTINF:-1 tvg-id="sony-sports-ten-5-hd" tvg-name="Sony Sports Ten 5 HD" tvg-logo="public/logos/sony-ten5.svg" group-title="Sony Sports",Sony Sports Ten 5 HD [Server 1 (Rabta Edge Line)]
 https://cdn.rabta.stream/M-Sports/index.m3u8
@@ -55,35 +55,35 @@ https://cdn.rabta.stream/M-Sports/index.m3u8
 #EXTINF:-1 tvg-id="sony-sports-ten-5-hd" tvg-name="Sony Sports Ten 5 HD" tvg-logo="public/logos/sony-ten5.svg" group-title="Sony Sports",Sony Sports Ten 5 HD [Server 2 (Cricket Gold 1080p)]
 https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-5-hd" tvg-name="Sony Sports Ten 5 HD" tvg-logo="public/logos/sony-ten5.svg" group-title="Sony Sports",Sony Sports Ten 5 HD [Server 3 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="sony-sports-ten-5-hd" tvg-name="Sony Sports Ten 5 HD" tvg-logo="public/logos/sony-ten5.svg" group-title="Sony Sports",Sony Sports Ten 5 HD [Server 4 (Fast Relay Proxy)]
+#EXTINF:-1 tvg-id="sony-sports-ten-5-hd" tvg-name="Sony Sports Ten 5 HD" tvg-logo="public/logos/sony-ten5.svg" group-title="Sony Sports",Sony Sports Ten 5 HD [Server 3 (Rabta Edge Proxy)]
 /proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
+
+#EXTINF:-1 tvg-id="sony-sports-ten-5-hd" tvg-name="Sony Sports Ten 5 HD" tvg-logo="public/logos/sony-ten5.svg" group-title="Sony Sports",Sony Sports Ten 5 HD [Server 4 (Cricket Gold Proxy)]
+/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
 
 #EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="Willow Cricket",Willow Cricket HD [Server 1 (SoFast 1080p Master)]
 https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
 
-#EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="Willow Cricket",Willow Cricket HD [Server 2 (CloudFront Live 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="Willow Cricket",Willow Cricket HD [Server 3 (Rabta International 1080p)]
+#EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="Willow Cricket",Willow Cricket HD [Server 2 (Rabta 1080p Line)]
 https://cdn.rabta.stream/M-Sports/index.m3u8
 
-#EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="Willow Cricket",Willow Cricket HD [Server 4 (Willow Proxy HD)]
+#EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="Willow Cricket",Willow Cricket HD [Server 3 (Cricket Match Proxy Line)]
 /proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
 
-#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 1 (PiShow OTT 1080p Direct)]
-https://cdn.pishow.tv/ott/live/1161/master.m3u8
+#EXTINF:-1 tvg-id="willow-cricket-hd" tvg-name="Willow Cricket HD" tvg-logo="public/logos/willow-cricket.svg" group-title="Willow Cricket",Willow Cricket HD [Server 4 (Rabta Sports Proxy)]
+/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
 
-#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 2 (SmartPlay Mumbai 1080p 60fps)]
+#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 1 (SmartPlay Mumbai 1080p 60fps)]
 https://mumbai-edge.smartplaytv.in/DDSportsHD/index.m3u8
 
-#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 3 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
+#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 2 (PiShow OTT 1080p Direct)]
+https://cdn.pishow.tv/ott/live/1161/master.m3u8
 
-#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 4 (DD Sports HD Proxy)]
+#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 3 (SmartPlay Mumbai Proxy)]
 /proxy?url=https%3A%2F%2Fmumbai-edge.smartplaytv.in%2FDDSportsHD%2Findex.m3u8
+
+#EXTINF:-1 tvg-id="dd-sports-live-cricket" tvg-name="DD Sports HD" tvg-logo="public/logos/dd-sports.svg" group-title="DD Sports",DD Sports HD [Server 4 (PiShow Direct Proxy)]
+/proxy?url=https%3A%2F%2Fcdn.pishow.tv%2Fott%2Flive%2F1161%2Fmaster.m3u8
 
 #EXTINF:-1 tvg-id="cricket-gold-hd" tvg-name="Cricket Gold" tvg-logo="public/logos/cricket-gold.svg" group-title="Cricket Gold",Cricket Gold [Server 1 (SoFast 1080p Master)]
 https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
@@ -91,23 +91,23 @@ https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e
 #EXTINF:-1 tvg-id="cricket-gold-hd" tvg-name="Cricket Gold" tvg-logo="public/logos/cricket-gold.svg" group-title="Cricket Gold",Cricket Gold [Server 2 (Rabta 1080p Line)]
 https://cdn.rabta.stream/M-Sports/index.m3u8
 
-#EXTINF:-1 tvg-id="cricket-gold-hd" tvg-name="Cricket Gold" tvg-logo="public/logos/cricket-gold.svg" group-title="Cricket Gold",Cricket Gold [Server 3 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="cricket-gold-hd" tvg-name="Cricket Gold" tvg-logo="public/logos/cricket-gold.svg" group-title="Cricket Gold",Cricket Gold [Server 4 (Proxy Line 1080p)]
+#EXTINF:-1 tvg-id="cricket-gold-hd" tvg-name="Cricket Gold" tvg-logo="public/logos/cricket-gold.svg" group-title="Cricket Gold",Cricket Gold [Server 3 (SoFast Master Proxy)]
 /proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
 
-#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 1 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
+#EXTINF:-1 tvg-id="cricket-gold-hd" tvg-name="Cricket Gold" tvg-logo="public/logos/cricket-gold.svg" group-title="Cricket Gold",Cricket Gold [Server 4 (Rabta Stream Proxy)]
+/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
 
-#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 2 (SmartPlay Mumbai 60fps)]
-https://mumbai-edge.smartplaytv.in/DDSportsHD/index.m3u8
+#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 1 (Cricket Gold 1080p)]
+https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
 
-#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 3 (PiShow 1080p Direct)]
-https://cdn.pishow.tv/ott/live/1161/master.m3u8
+#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 2 (M Sports HD 1080p)]
+https://cdn.rabta.stream/M-Sports/index.m3u8
 
-#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 4 (Star Sports 2 Proxy)]
-/proxy?url=https%3A%2F%2Fd3qs3d2rkhfqrt.cloudfront.net%2Fout%2Fv1%2Fb17adfe543354fdd8d189b110617cddd%2Findex.m3u8
+#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 3 (Cricket Match Proxy)]
+/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
+
+#EXTINF:-1 tvg-id="star-sports-2-live" tvg-name="Star Sports 2" tvg-logo="public/logos/star-sports2.svg" group-title="Star Sports",Star Sports 2 [Server 4 (M Sports Proxy Line)]
+/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
 
 #EXTINF:-1 tvg-id="m-sports-live-cricket" tvg-name="M Sports HD" tvg-logo="public/logos/m-sports.svg" group-title="M Sports",M Sports HD [Server 1 (Rabta Stream Direct 1080p)]
 https://cdn.rabta.stream/M-Sports/index.m3u8
@@ -115,11 +115,11 @@ https://cdn.rabta.stream/M-Sports/index.m3u8
 #EXTINF:-1 tvg-id="m-sports-live-cricket" tvg-name="M Sports HD" tvg-logo="public/logos/m-sports.svg" group-title="M Sports",M Sports HD [Server 2 (Cricket Gold 1080p)]
 https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
 
-#EXTINF:-1 tvg-id="m-sports-live-cricket" tvg-name="M Sports HD" tvg-logo="public/logos/m-sports.svg" group-title="M Sports",M Sports HD [Server 3 (CloudFront Sports 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="m-sports-live-cricket" tvg-name="M Sports HD" tvg-logo="public/logos/m-sports.svg" group-title="M Sports",M Sports HD [Server 4 (Primary HD Proxy)]
+#EXTINF:-1 tvg-id="m-sports-live-cricket" tvg-name="M Sports HD" tvg-logo="public/logos/m-sports.svg" group-title="M Sports",M Sports HD [Server 3 (Rabta Stream Proxy)]
 /proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8
+
+#EXTINF:-1 tvg-id="m-sports-live-cricket" tvg-name="M Sports HD" tvg-logo="public/logos/m-sports.svg" group-title="M Sports",M Sports HD [Server 4 (Cricket Gold Proxy)]
+/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8
 
 #EXTINF:-1 tvg-id="eurosport-hd-live" tvg-name="Eurosport HD" tvg-logo="public/logos/eurosport.svg" group-title="Eurosport",Eurosport HD [Server 1 (CloudFront Sports 1080p)]
 https://d1t5afz6qed3xk.cloudfront.net/Unbeaten.m3u8
@@ -127,9 +127,9 @@ https://d1t5afz6qed3xk.cloudfront.net/Unbeaten.m3u8
 #EXTINF:-1 tvg-id="eurosport-hd-live" tvg-name="Eurosport HD" tvg-logo="public/logos/eurosport.svg" group-title="Eurosport",Eurosport HD [Server 2 (SmartPlay HD 1080p)]
 https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8
 
-#EXTINF:-1 tvg-id="eurosport-hd-live" tvg-name="Eurosport HD" tvg-logo="public/logos/eurosport.svg" group-title="Eurosport",Eurosport HD [Server 3 (CloudFront Live 1080p)]
-https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8
-
-#EXTINF:-1 tvg-id="eurosport-hd-live" tvg-name="Eurosport HD" tvg-logo="public/logos/eurosport.svg" group-title="Eurosport",Eurosport HD [Server 4 (Proxy Line 1080p)]
+#EXTINF:-1 tvg-id="eurosport-hd-live" tvg-name="Eurosport HD" tvg-logo="public/logos/eurosport.svg" group-title="Eurosport",Eurosport HD [Server 3 (CloudFront Proxy)]
 /proxy?url=https%3A%2F%2Fd1t5afz6qed3xk.cloudfront.net%2FUnbeaten.m3u8
+
+#EXTINF:-1 tvg-id="eurosport-hd-live" tvg-name="Eurosport HD" tvg-logo="public/logos/eurosport.svg" group-title="Eurosport",Eurosport HD [Server 4 (SmartPlay Edge Proxy)]
+/proxy?url=https%3A%2F%2Fmumbai-edge.smartplaytv.in%2FTennis2%2Findex.m3u8
 

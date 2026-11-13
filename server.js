@@ -236,6 +236,10 @@ function proxyStream(targetUrl, req, res) {
       'Accept': '*/*',
     };
 
+    if (parsed.hostname.includes('slivcdn.com')) {
+      headers['Cookie'] = 'hdntl=exp=1794591697~acl=%2f*~id=08618765184985467156334867388948~data=hdntl~hmac=61ee8b9f8402d1b764effb768511573efefe72278c6f62ac099d418983a801e2';
+    }
+
     if (req.headers.range) {
       headers['Range'] = req.headers.range;
     }

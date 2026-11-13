@@ -3,7 +3,7 @@
  * Minimal, Fast, High-Performance Sports Web Application
  */
 
-import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261112_08';
+import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261113_03';
 import { UPCOMING_BANNERS } from '../data/liveMatches.js';
 
 class CrickFreeApp {
@@ -463,7 +463,7 @@ class CrickFreeApp {
     if (this.channelNameEl) this.channelNameEl.textContent = channel.name;
     if (this.channelLogoEl) this.channelLogoEl.src = channel.logo;
     const subEl = document.getElementById('playerChannelSub');
-    if (subEl) subEl.textContent = `${channel.language} • ${channel.quality || '1080p HD'}`;
+    if (subEl) subEl.textContent = `${channel.language} • ${server.name || 'HD Line'} • ${server.bitrate || channel.quality || '1080p HD'}`;
     if (this.qualityTagEl) this.qualityTagEl.textContent = channel.quality || '1080p HD';
 
     this.renderServerButtons(channel);
