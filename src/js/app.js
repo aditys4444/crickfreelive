@@ -84,7 +84,10 @@ class CrickFreeApp {
 
   async syncChannelsFromApi() {
     try {
-      const res = await fetch('/api/channels?_nocache=' + Date.now());
+      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
+        ? ''
+        : 'https://stream.crickfreelive.online';
+      const res = await fetch(`${apiOrigin}/api/channels?_nocache=` + Date.now());
       if (res.ok) {
         const data = await res.json();
         if (data && Array.isArray(data.channels) && data.channels.length > 0) {
@@ -164,7 +167,10 @@ class CrickFreeApp {
 
   async fetchLiveBanners() {
     try {
-      const res = await fetch('/api/live-matches');
+      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
+        ? ''
+        : 'https://stream.crickfreelive.online';
+      const res = await fetch(`${apiOrigin}/api/live-matches`);
       if (!res.ok) return;
       const data = await res.json();
       if (data && Array.isArray(data.banners) && data.banners.length > 0) {
@@ -471,7 +477,14 @@ class CrickFreeApp {
 
     if (!this.video) return;
 
-    const streamUrl = server.url;
+    let streamUrl = server.url;
+    if (streamUrl.startsWith('/')) {
+      const isLocal = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
+      if (!isLocal) {
+        streamUrl = `https://stream.crickfreelive.online${streamUrl}`;
+      }
+    }
+
     console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1} [${server.name || 'HD'}]: ${streamUrl}`);
 
     // Tear down active player instances
