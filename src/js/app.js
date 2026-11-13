@@ -3,7 +3,7 @@
  * Minimal, Fast, High-Performance Sports Web Application
  */
 
-import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261113_03';
+import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261113_04';
 import { UPCOMING_BANNERS } from '../data/liveMatches.js';
 
 class CrickFreeApp {
@@ -586,19 +586,26 @@ class CrickFreeApp {
     if (window.Hls && Hls.isSupported()) {
       this.hls = new Hls({
         enableWorker: true,
-        lowLatencyMode: false, // Buffer cushion against network drops
+        lowLatencyMode: false, // Ensures deep buffer cushion against network drops
         backBufferLength: 30,
-        maxBufferLength: 30,
+        maxBufferLength: 30, // Maintains up to 30s buffer ahead in RAM
         maxMaxBufferLength: 60,
         maxBufferSize: 60 * 1000 * 1000,
-        liveSyncDurationCount: 3, // Maintain 12 seconds buffer ahead so it never stutters
+        liveSyncDurationCount: 3, // Maintain 12s safety cushion so it never stutters
         liveMaxLatencyDurationCount: 8,
+        maxBufferHole: 0.5,
+        highBufferWatchdogPeriod: 2,
+        nudgeOffset: 0.1,
+        nudgeMaxRetry: 5,
+        startLevel: 0, // Starts immediately with fastest segment for instant 0s buffering
         manifestLoadingTimeOut: 15000,
-        manifestLoadingMaxRetry: 3,
+        manifestLoadingMaxRetry: 4,
+        manifestLoadingRetryDelay: 800,
         levelLoadingTimeOut: 15000,
-        levelLoadingMaxRetry: 3,
+        levelLoadingMaxRetry: 4,
         fragLoadingTimeOut: 20000,
-        fragLoadingMaxRetry: 3
+        fragLoadingMaxRetry: 4,
+        fragLoadingRetryDelay: 800
       });
 
       this.hls.loadSource(streamUrl);
@@ -614,6 +621,7 @@ class CrickFreeApp {
         }
       });
 
+      let netErrorRetries = 0;
       this.hls.on(Hls.Events.ERROR, (event, data) => {
         if (!data.fatal) return;
 
@@ -625,6 +633,13 @@ class CrickFreeApp {
             return;
           } catch (e) {
             this.switchToNextServer('Unrecoverable media error');
+            return;
+          }
+        } else if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+          if (netErrorRetries < 2) {
+            netErrorRetries++;
+            console.warn('[CrickFree] Network glitch detected, recovering stream...');
+            this.hls.startLoad();
             return;
           }
         }

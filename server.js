@@ -243,11 +243,61 @@ const MIME_TYPES = {
   '.dash': 'video/mp4'
 };
 
+// High-performance Keep-Alive Connection Pools to reduce TLS handshake overhead
+const httpsKeepAliveAgent = new https.Agent({
+  keepAlive: true,
+  maxSockets: 100,
+  maxFreeSockets: 25,
+  keepAliveMsecs: 30000,
+  timeout: 15000
+});
+
+const httpKeepAliveAgent = new http.Agent({
+  keepAlive: true,
+  maxSockets: 100,
+  maxFreeSockets: 25,
+  keepAliveMsecs: 30000,
+  timeout: 15000
+});
+
+// High-speed In-Memory Segment Cache for 0ms latency video playback
+const segmentCache = new Map();
+const MAX_CACHE_ITEMS = 40;
+
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, item] of segmentCache.entries()) {
+    if (now - item.time > 90000) {
+      segmentCache.delete(key);
+    }
+  }
+}, 30000);
+
 // Stream Proxy handler to bypass CORS, geo-restrictions, and mixed-content blocks safely
 function proxyStream(targetUrl, req, res) {
   try {
     const parsed = new URL(targetUrl);
-    const mod = parsed.protocol === 'https:' ? https : http;
+    const isHttps = parsed.protocol === 'https:';
+    const mod = isHttps ? https : http;
+    const agent = isHttps ? httpsKeepAliveAgent : httpKeepAliveAgent;
+
+    const isSegment = targetUrl.includes('.ts') || targetUrl.includes('.m4s') || targetUrl.includes('.mp4');
+    const isKey = targetUrl.includes('.key') || targetUrl.includes('key=');
+
+    // 1. Instant Cache HIT for video segments (0ms latency, zero buffering)
+    if (isSegment && segmentCache.has(targetUrl)) {
+      const cached = segmentCache.get(targetUrl);
+      res.writeHead(200, {
+        'Content-Type': cached.contentType || 'video/MP2T',
+        'Content-Length': cached.buffer.length,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Cache-Control': 'public, max-age=86400, s-maxage=86400, immutable',
+        'X-Cache': 'HIT'
+      });
+      res.end(cached.buffer);
+      return;
+    }
 
     const headers = {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
@@ -263,7 +313,7 @@ function proxyStream(targetUrl, req, res) {
       headers['Range'] = req.headers.range;
     }
 
-    const proxyReq = mod.get(targetUrl, { headers, timeout: 10000 }, (proxyRes) => {
+    const proxyReq = mod.get(targetUrl, { headers, agent, timeout: 10000 }, (proxyRes) => {
       // Follow redirects
       if (proxyRes.statusCode >= 300 && proxyRes.statusCode < 400 && proxyRes.headers.location) {
         try {
@@ -339,8 +389,37 @@ function proxyStream(targetUrl, req, res) {
         if (proxyRes.headers['content-range']) responseHeaders['Content-Range'] = proxyRes.headers['content-range'];
         if (proxyRes.headers['accept-ranges']) responseHeaders['Accept-Ranges'] = proxyRes.headers['accept-ranges'];
 
+        if (isSegment) {
+          responseHeaders['Cache-Control'] = 'public, max-age=86400, s-maxage=86400, immutable';
+        } else if (isKey) {
+          responseHeaders['Cache-Control'] = 'public, max-age=3600';
+        }
+
         res.writeHead(proxyRes.statusCode, responseHeaders);
-        proxyRes.pipe(res);
+
+        if (isSegment && proxyRes.statusCode === 200) {
+          const segChunks = [];
+          proxyRes.on('data', (c) => {
+            segChunks.push(c);
+            res.write(c);
+          });
+          proxyRes.on('end', () => {
+            res.end();
+            if (segChunks.length > 0) {
+              if (segmentCache.size >= MAX_CACHE_ITEMS) {
+                const oldest = segmentCache.keys().next().value;
+                segmentCache.delete(oldest);
+              }
+              segmentCache.set(targetUrl, {
+                buffer: Buffer.concat(segChunks),
+                contentType: proxyRes.headers['content-type'] || 'video/MP2T',
+                time: Date.now()
+              });
+            }
+          });
+        } else {
+          proxyRes.pipe(res);
+        }
 
         proxyRes.on('error', () => {
           try { res.end(); } catch (e) {}

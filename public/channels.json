@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-11-13T11:14:04.164Z",
+  "updatedAt": "2026-11-13T11:22:56.168Z",
   "source": "Aditya Proj Live TV Extractor",
   "totalChannels": 11,
   "totalServers": 44,
@@ -44,27 +44,27 @@
       "servers": [
         {
           "id": "ten3-srv1",
-          "name": "Server 1 (Official Sony Ten 3 - Auto HD)",
-          "url": "/sony-ten3-adaptive.m3u8",
+          "name": "Server 1 (Official 720p - Zero Buffering)",
+          "url": "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_900.m3u8",
           "status": "active",
-          "bitrate": "Adaptive 720p/1080p (No Buffering)",
-          "ping": "10ms"
+          "bitrate": "720p HD (Low Data & Zero Buffering)",
+          "ping": "8ms"
         },
         {
           "id": "ten3-srv2",
-          "name": "Server 2 (Official Sony Ten 3 - 720p Ultra Smooth)",
-          "url": "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_900.m3u8",
+          "name": "Server 2 (Official 1080p - Full HD)",
+          "url": "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_2000.m3u8",
           "status": "active",
-          "bitrate": "720p HD (Low Data & Fast)",
+          "bitrate": "1080p Full HD",
           "ping": "12ms"
         },
         {
           "id": "ten3-srv3",
-          "name": "Server 3 (Official Sony Ten 3 - 1080p Full HD)",
-          "url": "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_2000.m3u8",
+          "name": "Server 3 (Official Auto Adaptive)",
+          "url": "/sony-ten3-adaptive.m3u8",
           "status": "active",
-          "bitrate": "1080p Full HD",
-          "ping": "15ms"
+          "bitrate": "Adaptive Multi-Bitrate",
+          "ping": "10ms"
         },
         {
           "id": "ten3-srv4",
