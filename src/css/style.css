@@ -383,6 +383,77 @@ body {
 }
 
 /* ============================================================== */
+/* TELEGRAM JOIN BANNER */
+/* ============================================================== */
+.telegram-banner-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 22px auto 0;
+  padding: 0 20px;
+}
+
+.telegram-banner-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: #0088cc;
+  background: linear-gradient(90deg, #0088cc 0%, #0099e6 50%, #0088cc 100%);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 136, 204, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.telegram-banner-btn:hover {
+  background: linear-gradient(90deg, #0099e6 0%, #00aaff 50%, #0099e6 100%);
+  box-shadow: 0 6px 22px rgba(0, 153, 230, 0.55);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.telegram-banner-btn:active {
+  transform: translateY(0);
+}
+
+.telegram-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.telegram-banner-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  fill: #ffffff;
+}
+
+.telegram-banner-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.1px;
+}
+
+.telegram-banner-arrow {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: #ffffff;
+  opacity: 0.9;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.telegram-banner-btn:hover .telegram-banner-arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* ============================================================== */
 /* CHANNELS SECTION */
 /* ============================================================== */
 .channels-section {
@@ -834,6 +905,21 @@ body {
     max-width: 250px;
     padding: 11px 22px;
     font-size: 13.5px;
+  }
+
+  /* Telegram Banner */
+  .telegram-banner-container {
+    padding: 0 12px;
+    margin: 14px auto 0;
+  }
+
+  .telegram-banner-btn {
+    padding: 12px 16px;
+    border-radius: 10px;
+  }
+
+  .telegram-banner-title {
+    font-size: 14px;
   }
 
   /* Channels Section */
