@@ -215,6 +215,17 @@ class CrickFreeApp {
         this.showLandingPage();
       });
     }
+
+    // Telegram Join Channel Button
+    const btnTelegramJoin = document.getElementById('btnTelegramJoin');
+    if (btnTelegramJoin) {
+      btnTelegramJoin.addEventListener('click', () => {
+        const inviteCode = 'HjvBBLrEuKAyNmY9';
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          window.location.href = `tg://join?invite=${inviteCode}`;
+        }
+      });
+    }
   }
 
   showLandingPage() {
