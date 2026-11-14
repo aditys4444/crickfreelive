@@ -2,13 +2,13 @@
 #PLAYLIST:CrickFreeLive - Live Cricket & Sports Streams
 
 #EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 1 (Official 720p - Zero Buffering)]
-/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_900.m3u8
+/stream/live/ten3-720p.m3u8
 
 #EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 2 (Official 1080p - Full HD)]
-/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_2000.m3u8
+/stream/live/ten3-1080p.m3u8
 
 #EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 3 (Official Auto Adaptive)]
-/sony-ten3-adaptive.m3u8
+/stream/live/ten3-adaptive.m3u8
 
 #EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 4 (Backup T20 Match Line)]
 https://cdn.rabta.stream/M-Sports/index.m3u8

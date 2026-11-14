@@ -226,6 +226,50 @@ class CrickFreeApp {
         }
       });
     }
+
+    // DevTools & Source Protection Shield
+    this.setupDevToolsShield();
+  }
+
+  setupDevToolsShield() {
+    // 1. Disable Right-Click Context Menu (Prevents "Inspect Element")
+    document.addEventListener('contextmenu', (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+      e.preventDefault();
+    }, false);
+
+    // 2. Disable DevTools Shortcuts (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S)
+    document.addEventListener('keydown', (e) => {
+      // F12
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+I / J / C (or Cmd+Option+I / J / C on macOS)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+U (View Source)
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U')) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+S (Save Webpage)
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        return false;
+      }
+    }, false);
+
+    // 3. Console Security Banner
+    try {
+      console.log(
+        '%c🛡️ CrickFree Security Shield Active%c\nSource inspection and API extraction are restricted.',
+        'color: #0088cc; font-size: 16px; font-weight: 700; padding: 4px 0;',
+        'color: #94a3b8; font-size: 12px;'
+      );
+    } catch (e) {}
   }
 
   showLandingPage() {
@@ -514,7 +558,7 @@ class CrickFreeApp {
       }
     }
 
-    console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1} [${server.name || 'HD'}]: ${streamUrl}`);
+    console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1} [${server.name || 'HD'}]`);
 
     // Tear down active player instances
     if (this.hls) {

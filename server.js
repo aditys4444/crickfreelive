@@ -1,5 +1,6 @@
 import http from 'http';
 import https from 'https';
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -273,6 +274,43 @@ setInterval(() => {
   }
 }, 30000);
 
+// High-Security Stream Token Obfuscation Engine (Masks all upstream APIs/tokens from browser DevTools)
+const STREAM_SECRET = crypto.randomBytes(32);
+const STREAM_IV_LENGTH = 16;
+
+function encodeStreamToken(plainText) {
+  try {
+    const iv = crypto.randomBytes(STREAM_IV_LENGTH);
+    const cipher = crypto.createCipheriv('aes-256-cbc', STREAM_SECRET, iv);
+    let encrypted = cipher.update(plainText, 'utf8');
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return Buffer.concat([iv, encrypted]).toString('base64url');
+  } catch (e) {
+    return Buffer.from(plainText, 'utf8').toString('base64url');
+  }
+}
+
+function decodeStreamToken(token) {
+  try {
+    const raw = Buffer.from(token, 'base64url');
+    if (raw.length <= STREAM_IV_LENGTH) return null;
+    const iv = raw.subarray(0, STREAM_IV_LENGTH);
+    const encrypted = raw.subarray(STREAM_IV_LENGTH);
+    const decipher = crypto.createDecipheriv('aes-256-cbc', STREAM_SECRET, iv);
+    let decrypted = decipher.update(encrypted);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString('utf8');
+  } catch (e) {
+    return null;
+  }
+}
+
+const STREAM_ALIASES = {
+  '/stream/live/ten3-720p.m3u8': 'https://dishmt.slivcdn.com/hls/live/2020591/TEN3HD/master_900.m3u8',
+  '/stream/live/ten3-1080p.m3u8': 'https://dishmt.slivcdn.com/hls/live/2020591/TEN3HD/master_2000.m3u8',
+  '/stream/live/ten3-3500p.m3u8': 'https://dishmt.slivcdn.com/hls/live/2020591/TEN3HD/master_3500.m3u8'
+};
+
 // Stream Proxy handler to bypass CORS, geo-restrictions, and mixed-content blocks safely
 function proxyStream(targetUrl, req, res) {
   try {
@@ -347,7 +385,7 @@ function proxyStream(targetUrl, req, res) {
                 return l.replace(/URI="([^"]+)"/, (m, uri) => {
                   try {
                     const resolved = new URL(uri, targetUrl).toString();
-                    return `URI="/proxy?url=${encodeURIComponent(resolved)}"`;
+                    return `URI="/stream/key?t=${encodeStreamToken(resolved)}"`;
                   } catch (e) {
                     return m;
                   }
@@ -357,7 +395,7 @@ function proxyStream(targetUrl, req, res) {
             }
             try {
               const resolved = new URL(l, targetUrl).toString();
-              return `/proxy?url=${encodeURIComponent(resolved)}`;
+              return `/stream/seg?t=${encodeStreamToken(resolved)}`;
             } catch (e) {
               return line;
             }
@@ -508,7 +546,46 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 4. Stream Proxy endpoint with SSRF & Hotlinking Defense
+  // 4. Secure Obfuscated Stream Segments & Keys (Upstream origin & tokens are 100% hidden)
+  if (pathname === '/stream/key' || pathname === '/stream/seg') {
+    if (!isHotlinkAllowed(req)) {
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('403 Forbidden: Hotlinking not allowed');
+      return;
+    }
+
+    const token = parsedUrl.searchParams.get('t');
+    if (!token) {
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      res.end('Missing stream token');
+      return;
+    }
+
+    const realTargetUrl = decodeStreamToken(token);
+    if (!realTargetUrl || !isSafeProxyUrl(realTargetUrl)) {
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('403 Forbidden: Invalid stream token');
+      return;
+    }
+
+    proxyStream(realTargetUrl, req, res);
+    return;
+  }
+
+  // 5. Named Obfuscated Stream Master Playlists (No upstream URLs exposed in DevTools)
+  if (STREAM_ALIASES[pathname]) {
+    if (!isHotlinkAllowed(req)) {
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('403 Forbidden: Hotlinking not allowed');
+      return;
+    }
+
+    const realTargetUrl = STREAM_ALIASES[pathname];
+    proxyStream(realTargetUrl, req, res);
+    return;
+  }
+
+  // 6. Stream Proxy endpoint with SSRF & Hotlinking Defense (Backward Compatibility)
   if (pathname === '/proxy') {
     // Anti-Hotlinking: prevent rogue third-party sites from stealing your bandwidth
     if (!isHotlinkAllowed(req)) {
@@ -517,10 +594,15 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    const targetUrl = parsedUrl.searchParams.get('url');
+    let targetUrl = parsedUrl.searchParams.get('url');
+    const token = parsedUrl.searchParams.get('t');
+    if (token) {
+      targetUrl = decodeStreamToken(token);
+    }
+
     if (!targetUrl) {
       res.writeHead(400, { 'Content-Type': 'text/plain' });
-      res.end('Missing "url" query parameter');
+      res.end('Missing "url" or "t" query parameter');
       return;
     }
 
@@ -535,16 +617,16 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Adaptive Multi-Bitrate Master Playlist for Sony Sports Ten 3 HD
-  if (pathname === '/sony-ten3-adaptive.m3u8' || pathname === '/api/sony-ten3-adaptive.m3u8') {
+  // Adaptive Multi-Bitrate Master Playlist for Sony Sports Ten 3 HD (Masked)
+  if (pathname === '/stream/live/ten3-adaptive.m3u8' || pathname === '/sony-ten3-adaptive.m3u8' || pathname === '/api/sony-ten3-adaptive.m3u8') {
     const adaptiveM3u8 = `#EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:BANDWIDTH=900000,AVERAGE-BANDWIDTH=850000,RESOLUTION=1280x720,FRAME-RATE=25.000,NAME="720p HD (Smooth & Fast)"
-/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_900.m3u8
+/stream/live/ten3-720p.m3u8
 #EXT-X-STREAM-INF:BANDWIDTH=2000000,AVERAGE-BANDWIDTH=1900000,RESOLUTION=1920x1080,FRAME-RATE=50.000,NAME="1080p HD (Balanced)"
-/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_2000.m3u8
+/stream/live/ten3-1080p.m3u8
 #EXT-X-STREAM-INF:BANDWIDTH=3500000,AVERAGE-BANDWIDTH=3400000,RESOLUTION=1920x1080,FRAME-RATE=50.000,NAME="1080p Full HD (Ultra)"
-/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_3500.m3u8
+/stream/live/ten3-3500p.m3u8
 `;
     res.writeHead(200, {
       'Content-Type': 'application/vnd.apple.mpegurl',

@@ -25,7 +25,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten3-srv1",
         name: "Server 1 (Official 720p - Zero Buffering)",
-        url: "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_900.m3u8",
+        url: "/stream/live/ten3-720p.m3u8",
         status: "active",
         bitrate: "720p HD (Low Data & Zero Buffering)",
         ping: "8ms"
@@ -33,7 +33,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten3-srv2",
         name: "Server 2 (Official 1080p - Full HD)",
-        url: "/proxy?url=https%3A%2F%2Fdishmt.slivcdn.com%2Fhls%2Flive%2F2020591%2FTEN3HD%2Fmaster_2000.m3u8",
+        url: "/stream/live/ten3-1080p.m3u8",
         status: "active",
         bitrate: "1080p Full HD",
         ping: "12ms"
@@ -41,7 +41,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten3-srv3",
         name: "Server 3 (Official Auto Adaptive)",
-        url: "/sony-ten3-adaptive.m3u8",
+        url: "/stream/live/ten3-adaptive.m3u8",
         status: "active",
         bitrate: "Adaptive Multi-Bitrate",
         ping: "10ms"
