@@ -3,7 +3,7 @@
  * Minimal, Fast, High-Performance Sports Web Application
  */
 
-import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261115_04';
+import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261115_05';
 import { UPCOMING_BANNERS } from '../data/liveMatches.js';
 
 class CrickFreeApp {
@@ -85,10 +85,7 @@ class CrickFreeApp {
 
   async syncChannelsFromApi() {
     try {
-      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
-        ? ''
-        : 'https://stream.crickfreelive.online';
-      const res = await fetch(`${apiOrigin}/api/channels?_nocache=` + Date.now());
+      const res = await fetch(`public/channels.json?_nocache=` + Date.now());
       if (res.ok) {
         const data = await res.json();
         if (data && Array.isArray(data.channels) && data.channels.length > 0) {
@@ -106,7 +103,7 @@ class CrickFreeApp {
         }
       }
     } catch (e) {
-      console.warn('[CrickFree] Live channels sync skipped:', e.message);
+      console.warn('[CrickFree] Cloud channels sync skipped:', e.message);
     }
   }
 
@@ -168,14 +165,11 @@ class CrickFreeApp {
 
   async fetchLiveBanners() {
     try {
-      const apiOrigin = (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1'))
-        ? ''
-        : 'https://stream.crickfreelive.online';
-      const res = await fetch(`${apiOrigin}/api/live-matches`);
+      const res = await fetch(`public/channels.json?_nocache=` + Date.now());
       if (!res.ok) return;
       const data = await res.json();
-      if (data && Array.isArray(data.banners) && data.banners.length > 0) {
-        this.banners = data.banners;
+      if (data && Array.isArray(data.featuredMatches) && data.featuredMatches.length > 0) {
+        this.banners = data.featuredMatches;
         if (this.activeBannerIndex >= this.banners.length) {
           this.activeBannerIndex = 0;
         }
@@ -549,12 +543,6 @@ class CrickFreeApp {
     if (!this.video) return;
 
     let streamUrl = server.url;
-    if (streamUrl.startsWith('/')) {
-      const isLocal = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
-      if (!isLocal) {
-        streamUrl = `https://stream.crickfreelive.online${streamUrl}`;
-      }
-    }
 
     console.log(`[CrickFree] Playing ${channel.name} -> Server ${this.currentServerIndex + 1} [${server.name || 'HD'}]`);
 
