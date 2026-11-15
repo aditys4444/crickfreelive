@@ -656,7 +656,7 @@ class CrickFreeApp {
       }
       if (this.iframe) {
         // Prevent all unwanted popups, new window tags, and redirects
-        this.iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+        this.iframe.setAttribute('sandbox', 'allow-scripts allow-presentation');
         this.iframe.classList.remove('hidden');
         this.iframe.src = server.url;
       }
