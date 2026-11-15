@@ -1,11 +1,11 @@
 #EXTM3U
 #PLAYLIST:CrickFreeLive - Live Cricket & Sports Streams
 
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 1 (Official 1080p - Auto-Renewing)]
-https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd
-
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 2 (Embed Cloud HD - Zero Buffering)]
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 1 (Cloud HD - Zero Buffering)]
 https://allrounder3-0.pages.dev/cricket/sony-3
+
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 2 (Native 1080p - Deep Buffer)]
+https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd
 
 #EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 3 (Backup T20 Match Line)]
 https://cdn.rabta.stream/M-Sports/index.m3u8

@@ -690,12 +690,20 @@ class CrickFreeApp {
 
         player.configure({
           drm: { clearKeys: clearKeys },
-          manifest: { defaultPresentationDelay: 5 },
+          manifest: {
+            defaultPresentationDelay: 18
+          },
           streaming: {
-            lowLatencyMode: true,
-            bufferingGoal: 10,
-            rebufferingGoal: 2,
-            safeSeekOffset: 5
+            lowLatencyMode: false,
+            bufferingGoal: 45,
+            rebufferingGoal: 5,
+            bufferBehind: 30,
+            safeSeekOffset: 12
+          },
+          abr: {
+            enabled: true,
+            defaultBandwidthEstimate: 2000000,
+            switchInterval: 8
           }
         });
 

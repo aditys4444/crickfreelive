@@ -24,7 +24,16 @@ export const CRICKET_CHANNELS = [
     servers: [
       {
         id: "ten3-srv1",
-        name: "Server 1 (Official 1080p - Auto-Renewing)",
+        name: "Server 1 (Cloud HD - Zero Buffering)",
+        url: "https://allrounder3-0.pages.dev/cricket/sony-3",
+        type: "embed",
+        status: "active",
+        bitrate: "1080p Cloud HD",
+        ping: "8ms"
+      },
+      {
+        id: "ten3-srv2",
+        name: "Server 2 (Native 1080p - Deep Buffer)",
         url: "https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd",
         type: "dash",
         cookieUrl: "https://allrounder2-0.pages.dev/api/hindi.json",
@@ -36,16 +45,7 @@ export const CRICKET_CHANNELS = [
           "e392571e46bd5461854986ae9e58083d": "1167c024aa8bbad2c1beaf218cfeec11"
         },
         status: "active",
-        bitrate: "1080p Full HD (Auto Token)",
-        ping: "8ms"
-      },
-      {
-        id: "ten3-srv2",
-        name: "Server 2 (Embed Cloud HD - Zero Buffering)",
-        url: "https://allrounder3-0.pages.dev/cricket/sony-3",
-        type: "embed",
-        status: "active",
-        bitrate: "1080p Cloud HD",
+        bitrate: "1080p Full HD",
         ping: "10ms"
       },
       {
