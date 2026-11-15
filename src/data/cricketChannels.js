@@ -24,34 +24,44 @@ export const CRICKET_CHANNELS = [
     servers: [
       {
         id: "ten3-srv1",
-        name: "Server 1 (Official 720p - Zero Buffering)",
-        url: "/stream/live/ten3-720p.m3u8",
+        name: "Server 1 (Official 1080p - Auto-Renewing)",
+        url: "https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd",
+        type: "dash",
+        cookieUrl: "https://allrounder2-0.pages.dev/api/hindi.json",
+        clearKey: {
+          "c20ba4e9d0635bab9f17b177f0d91039": "fcb4a266539ac7b03ef02c5600c5598d",
+          "140edf90fa0b5c99864f2442df4df535": "991b51ed2e690c96163a31ae4a6f6452",
+          "c592c427c0d35e9a8ad88cdcb76a16c1": "8ecb737e4015c22451d6c14fe37e9e15",
+          "10f4930166fa5b6ab5d71a4a978bdfac": "9dfa22aa4d6a3d820101f59013de0236",
+          "e392571e46bd5461854986ae9e58083d": "1167c024aa8bbad2c1beaf218cfeec11"
+        },
         status: "active",
-        bitrate: "720p HD (Low Data & Zero Buffering)",
+        bitrate: "1080p Full HD (Auto Token)",
         ping: "8ms"
       },
       {
         id: "ten3-srv2",
-        name: "Server 2 (Official 1080p - Full HD)",
-        url: "/stream/live/ten3-1080p.m3u8",
+        name: "Server 2 (Embed Cloud HD - Zero Buffering)",
+        url: "https://allrounder3-0.pages.dev/cricket/sony-3",
+        type: "embed",
         status: "active",
-        bitrate: "1080p Full HD",
-        ping: "12ms"
-      },
-      {
-        id: "ten3-srv3",
-        name: "Server 3 (Official Auto Adaptive)",
-        url: "/stream/live/ten3-adaptive.m3u8",
-        status: "active",
-        bitrate: "Adaptive Multi-Bitrate",
+        bitrate: "1080p Cloud HD",
         ping: "10ms"
       },
       {
-        id: "ten3-srv4",
-        name: "Server 4 (Backup T20 Match Line)",
+        id: "ten3-srv3",
+        name: "Server 3 (Backup T20 Match Line)",
         url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Backup",
+        ping: "15ms"
+      },
+      {
+        id: "ten3-srv4",
+        name: "Server 4 (Official HLS Stream)",
+        url: "/stream/live/ten3-720p.m3u8",
+        status: "active",
+        bitrate: "720p HD",
         ping: "18ms"
       }
     ]

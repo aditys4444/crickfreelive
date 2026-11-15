@@ -34,6 +34,7 @@ class CrickFreeApp {
 
     // Video Player
     this.video = document.getElementById('videoPlayer');
+    this.iframe = document.getElementById('playerIframe');
     this.channelNameEl = document.getElementById('playerChannelName');
     this.channelLogoEl = document.getElementById('playerChannelLogo');
     this.qualityTagEl = document.getElementById('playerQualityTag');
@@ -638,6 +639,39 @@ class CrickFreeApp {
       }
     }, watchdogTimeoutMs);
 
+    // Handle Embed Player (iframe)
+    if (server.type === 'embed') {
+      this.clearWatchdogsAndTimers();
+      if (this.hls) {
+        try { this.hls.destroy(); } catch (e) {}
+        this.hls = null;
+      }
+      if (this.shakaPlayer) {
+        try { this.shakaPlayer.destroy(); } catch (e) {}
+        this.shakaPlayer = null;
+      }
+      if (this.video) {
+        try { this.video.pause(); } catch (e) {}
+        this.video.classList.add('hidden');
+      }
+      if (this.iframe) {
+        this.iframe.classList.remove('hidden');
+        this.iframe.src = server.url;
+      }
+      this.isPlayingSuccessfully = true;
+      this.failoverAttempts = 0;
+      console.log(`[CrickFree] Channel ${channel.name} playing in Embed mode on Server ${this.currentServerIndex + 1}`);
+      return;
+    } else {
+      if (this.iframe) {
+        this.iframe.classList.add('hidden');
+        this.iframe.src = 'about:blank';
+      }
+      if (this.video) {
+        this.video.classList.remove('hidden');
+      }
+    }
+
     const isDash = streamUrl.toLowerCase().includes('.mpd') || server.type === 'dash';
 
     if (isDash && window.shaka) {
@@ -646,26 +680,55 @@ class CrickFreeApp {
         const player = new shaka.Player(this.video);
         this.shakaPlayer = player;
 
-        if (server.drm) {
-          player.configure({ drm: server.drm });
-        } else if (server.clearKey) {
-          player.configure({
-            drm: {
-              clearKeys: server.clearKey
-            }
-          });
-        }
+        const clearKeys = server.clearKey || {
+          "c20ba4e9d0635bab9f17b177f0d91039": "fcb4a266539ac7b03ef02c5600c5598d",
+          "140edf90fa0b5c99864f2442df4df535": "991b51ed2e690c96163a31ae4a6f6452",
+          "c592c427c0d35e9a8ad88cdcb76a16c1": "8ecb737e4015c22451d6c14fe37e9e15",
+          "10f4930166fa5b6ab5d71a4a978bdfac": "9dfa22aa4d6a3d820101f59013de0236",
+          "e392571e46bd5461854986ae9e58083d": "1167c024aa8bbad2c1beaf218cfeec11"
+        };
 
-        player.load(streamUrl).then(() => {
-          this.failoverAttempts = 0;
-          this.video.muted = false;
-          this.video.play().catch(() => {
-            this.video.muted = true;
-            this.video.play().catch(() => {});
+        player.configure({
+          drm: { clearKeys: clearKeys },
+          manifest: { defaultPresentationDelay: 5 },
+          streaming: {
+            lowLatencyMode: true,
+            bufferingGoal: 10,
+            rebufferingGoal: 2,
+            safeSeekOffset: 5
+          }
+        });
+
+        const cookieUrl = server.cookieUrl || "https://allrounder2-0.pages.dev/api/hindi.json";
+        const fetchCookiePromise = server.cookieUrl ? 
+          fetch(cookieUrl, { cache: "no-store" }).then(res => res.json()).catch(() => ({})) : 
+          Promise.resolve({});
+
+        fetchCookiePromise.then(data => {
+          const cookieValue = data.cookie || "";
+          if (cookieValue) {
+            const urlCookie = cookieValue.startsWith("__hdnea__=") ? cookieValue.slice(10) : cookieValue;
+            player.getNetworkingEngine().registerRequestFilter((type, request) => {
+              if ((type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
+                   type === shaka.net.NetworkingEngine.RequestType.SEGMENT) &&
+                  !request.uris[0].includes("__hdnea__")) {
+                const sep = request.uris[0].includes("?") ? "&" : "?";
+                request.uris[0] += sep + "__hdnea__=" + urlCookie;
+              }
+            });
+          }
+        }).finally(() => {
+          player.load(streamUrl).then(() => {
+            this.failoverAttempts = 0;
+            this.video.muted = false;
+            this.video.play().catch(() => {
+              this.video.muted = true;
+              this.video.play().catch(() => {});
+            });
+          }).catch((err) => {
+            console.warn(`[CrickFree] Shaka DASH error on Server ${this.currentServerIndex + 1}:`, err);
+            this.switchToNextServer('DASH stream error');
           });
-        }).catch((err) => {
-          console.warn(`[CrickFree] Shaka DASH error on Server ${this.currentServerIndex + 1}:`, err);
-          this.switchToNextServer('DASH stream error');
         });
         return;
       }
