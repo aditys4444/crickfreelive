@@ -3,7 +3,7 @@
  * Minimal, Fast, High-Performance Sports Web Application
  */
 
-import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261115_05';
+import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261115_06';
 import { UPCOMING_BANNERS } from '../data/liveMatches.js';
 
 class CrickFreeApp {
@@ -677,7 +677,7 @@ class CrickFreeApp {
         player.configure({
           drm: { clearKeys: clearKeys },
           manifest: {
-            defaultPresentationDelay: 20,
+            defaultPresentationDelay: 10,
             updatePeriod: 25,
             dash: {
               ignoreMinBufferTime: true,
@@ -686,18 +686,17 @@ class CrickFreeApp {
           },
           streaming: {
             lowLatencyMode: false,
-            bufferingGoal: 20,
+            bufferingGoal: 15,
             rebufferingGoal: 2,
             bufferBehind: 15,
-            safeSeekOffset: 6,
-            gapDetectionThreshold: 0.2,
-            gapJumpTimerTime: 0.1,
+            safeSeekOffset: 4,
             stallEnabled: false,
-            segmentPrefetchLimit: 2
+            segmentPrefetchLimit: 2,
+            returnToEndOfLiveWindowWhenOutside: true
           },
           abr: {
             enabled: true,
-            defaultBandwidthEstimate: 1800000,
+            defaultBandwidthEstimate: 2000000,
             switchInterval: 8
           }
         });
@@ -724,6 +723,10 @@ class CrickFreeApp {
           try {
             await player.attach(this.video);
             await player.load(streamUrl);
+            const range = player.seekRange();
+            if (range && range.end > 0) {
+              this.video.currentTime = Math.max(range.start, range.end - 10);
+            }
             this.failoverAttempts = 0;
             this.video.muted = false;
             this.video.play().catch(() => {
