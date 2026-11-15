@@ -25,15 +25,14 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten3-srv1",
         name: "Server 1 (Cloud HD - Zero Buffering)",
-        url: "https://allrounder3-0.pages.dev/cricket/sony-3",
-        type: "embed",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Cloud HD",
-        ping: "8ms"
+        ping: "10ms"
       },
       {
         id: "ten3-srv2",
-        name: "Server 2 (Native 1080p - Deep Buffer)",
+        name: "Server 2 (Broadpeak 1080p - Clean Direct)",
         url: "https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd",
         type: "dash",
         cookieUrl: "https://allrounder2-0.pages.dev/api/hindi.json",
@@ -46,20 +45,20 @@ export const CRICKET_CHANNELS = [
         },
         status: "active",
         bitrate: "1080p Full HD",
-        ping: "10ms"
+        ping: "12ms"
       },
       {
         id: "ten3-srv3",
-        name: "Server 3 (Backup T20 Match Line)",
-        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
+        name: "Server 3 (Cricket Gold 1080p Cloud)",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Backup",
-        ping: "15ms"
+        ping: "16ms"
       },
       {
         id: "ten3-srv4",
-        name: "Server 4 (Cricket Gold HD Cloud)",
-        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
+        name: "Server 4 (SmartPlay HD Line)",
+        url: "https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8",
         status: "active",
         bitrate: "720p HD",
         ping: "18ms"

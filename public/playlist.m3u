@@ -2,16 +2,16 @@
 #PLAYLIST:CrickFreeLive - Live Cricket & Sports Streams
 
 #EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 1 (Cloud HD - Zero Buffering)]
-https://allrounder3-0.pages.dev/cricket/sony-3
-
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 2 (Native 1080p - Deep Buffer)]
-https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd
-
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 3 (Backup T20 Match Line)]
 https://cdn.rabta.stream/M-Sports/index.m3u8
 
-#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 4 (Cricket Gold HD Cloud)]
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 2 (Broadpeak 1080p - Clean Direct)]
+https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd
+
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 3 (Cricket Gold 1080p Cloud)]
 https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8
+
+#EXTINF:-1 tvg-id="sony-sports-ten-3-hd" tvg-name="Sony Sports Ten 3 HD" tvg-logo="public/logos/sony-ten3.svg" group-title="Sony Sports",Sony Sports Ten 3 HD [Server 4 (SmartPlay HD Line)]
+https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8
 
 #EXTINF:-1 tvg-id="sony-sports-ten-1-hd" tvg-name="Sony Sports Ten 1 HD" tvg-logo="public/logos/sony-ten1.svg" group-title="Sony Sports",Sony Sports Ten 1 HD [Server 1 (International Sports HD)]
 https://cdn.rabta.stream/M-Sports/index.m3u8

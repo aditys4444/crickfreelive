@@ -651,6 +651,22 @@ body {
   display: none !important;
 }
 
+/* Adsterra Ad Banner Slot */
+.adsterra-ad-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.adsterra-ad-banner:empty {
+  display: none;
+}
+
 /* Unified Broadcast Info Bar - Directly Under Video */
 .player-info-bar {
   display: flex;

@@ -3,7 +3,7 @@
  * Minimal, Fast, High-Performance Sports Web Application
  */
 
-import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261113_04';
+import { CRICKET_CHANNELS, CATEGORIES } from '../data/cricketChannels.js?v=20261115_03';
 import { UPCOMING_BANNERS } from '../data/liveMatches.js';
 
 class CrickFreeApp {
@@ -639,7 +639,7 @@ class CrickFreeApp {
       }
     }, watchdogTimeoutMs);
 
-    // Handle Embed Player (iframe)
+    // Handle Embed Player (iframe) with strict sandboxing to block third-party popups/redirects
     if (server.type === 'embed') {
       this.clearWatchdogsAndTimers();
       if (this.hls) {
@@ -655,6 +655,8 @@ class CrickFreeApp {
         this.video.classList.add('hidden');
       }
       if (this.iframe) {
+        // Prevent all unwanted popups, new window tags, and redirects
+        this.iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
         this.iframe.classList.remove('hidden');
         this.iframe.src = server.url;
       }
@@ -677,7 +679,7 @@ class CrickFreeApp {
     if (isDash && window.shaka) {
       shaka.polyfill.installAll();
       if (shaka.Player.isBrowserSupported()) {
-        const player = new shaka.Player(this.video);
+        const player = new shaka.Player();
         this.shakaPlayer = player;
 
         const clearKeys = server.clearKey || {
@@ -691,18 +693,26 @@ class CrickFreeApp {
         player.configure({
           drm: { clearKeys: clearKeys },
           manifest: {
-            defaultPresentationDelay: 18
+            defaultPresentationDelay: 20,
+            dash: {
+              ignoreMinBufferTime: true,
+              autoCorrectDrift: true
+            }
           },
           streaming: {
             lowLatencyMode: false,
-            bufferingGoal: 45,
-            rebufferingGoal: 5,
-            bufferBehind: 30,
-            safeSeekOffset: 12
+            bufferingGoal: 20,
+            rebufferingGoal: 2,
+            bufferBehind: 15,
+            safeSeekOffset: 6,
+            gapDetectionThreshold: 0.2,
+            gapJumpTimerTime: 0.1,
+            stallEnabled: false,
+            segmentPrefetchLimit: 2
           },
           abr: {
             enabled: true,
-            defaultBandwidthEstimate: 2000000,
+            defaultBandwidthEstimate: 1800000,
             switchInterval: 8
           }
         });
@@ -725,18 +735,20 @@ class CrickFreeApp {
               }
             });
           }
-        }).finally(() => {
-          player.load(streamUrl).then(() => {
+        }).finally(async () => {
+          try {
+            await player.attach(this.video);
+            await player.load(streamUrl);
             this.failoverAttempts = 0;
             this.video.muted = false;
             this.video.play().catch(() => {
               this.video.muted = true;
               this.video.play().catch(() => {});
             });
-          }).catch((err) => {
+          } catch (err) {
             console.warn(`[CrickFree] Shaka DASH error on Server ${this.currentServerIndex + 1}:`, err);
             this.switchToNextServer('DASH stream error');
-          });
+          }
         });
         return;
       }

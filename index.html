@@ -310,7 +310,12 @@
         <!-- 16:9 Video Canvas -->
         <div class="video-container" id="videoContainer">
           <video id="videoPlayer" controls playsinline preload="auto"></video>
-          <iframe id="playerIframe" class="hidden" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          <iframe id="playerIframe" class="hidden" sandbox="allow-scripts allow-same-origin allow-presentation" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Adsterra Ad Placement Slot (Directly Under Video Player) -->
+        <div id="adsterra-under-player" class="adsterra-ad-banner">
+          <!-- User's Adsterra Ad Unit Code Goes Here -->
         </div>
 
         <!-- Unified Broadcast Bar (Under Video) -->
@@ -361,6 +366,10 @@
   <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
 
-  <script type="module" src="src/js/app.js?v=20261114_06"></script>
+  <!-- Adsterra Global Script / Popunder / Social Bar Slot -->
+  <!-- Paste your Adsterra ad codes (popunder, social bar, banner) here -->
+  <div id="adsterra-global-slot"></div>
+
+  <script type="module" src="src/js/app.js?v=20261115_03"></script>
 </body>
 </html>
