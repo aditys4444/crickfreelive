@@ -58,8 +58,8 @@ export const CRICKET_CHANNELS = [
       },
       {
         id: "ten3-srv4",
-        name: "Server 4 (Official HLS Stream)",
-        url: "/stream/live/ten3-720p.m3u8",
+        name: "Server 4 (Cricket Gold HD Cloud)",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "720p HD",
         ping: "18ms"
@@ -104,7 +104,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten1-srv3",
         name: "Server 3 (International Sports Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "20ms"
@@ -112,7 +112,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten1-srv4",
         name: "Server 4 (Cricket Gold Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -157,7 +157,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten2-srv3",
         name: "Server 3 (SmartPlay Edge Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fmumbai-edge.smartplaytv.in%2FTennis2%2Findex.m3u8",
+        url: "https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -165,7 +165,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten2-srv4",
         name: "Server 4 (Unbeaten Sports Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fd1t5afz6qed3xk.cloudfront.net%2FUnbeaten.m3u8",
+        url: "https://d1t5afz6qed3xk.cloudfront.net/Unbeaten.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -210,7 +210,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten4-srv3",
         name: "Server 3 (Regional Feed Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -218,7 +218,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten4-srv4",
         name: "Server 4 (Rabta Sports Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -263,7 +263,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten5-srv3",
         name: "Server 3 (Rabta Edge Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -271,7 +271,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ten5-srv4",
         name: "Server 4 (Cricket Gold Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -316,7 +316,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "willow-srv3",
         name: "Server 3 (Cricket Match Proxy Line)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -324,7 +324,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "willow-srv4",
         name: "Server 4 (Rabta Sports Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -369,7 +369,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "dd-srv3",
         name: "Server 3 (SmartPlay Mumbai Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fmumbai-edge.smartplaytv.in%2FDDSportsHD%2Findex.m3u8",
+        url: "https://mumbai-edge.smartplaytv.in/DDSportsHD/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -377,7 +377,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "dd-srv4",
         name: "Server 4 (PiShow Direct Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.pishow.tv%2Fott%2Flive%2F1161%2Fmaster.m3u8",
+        url: "https://cdn.pishow.tv/ott/live/1161/master.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -422,7 +422,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "cgold-srv3",
         name: "Server 3 (SoFast Master Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -430,7 +430,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "cgold-srv4",
         name: "Server 4 (Rabta Stream Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -475,7 +475,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "star2-srv3",
         name: "Server 3 (Cricket Match Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -483,7 +483,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "star2-srv4",
         name: "Server 4 (M Sports Proxy Line)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -528,7 +528,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ms-srv3",
         name: "Server 3 (Rabta Stream Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fcdn.rabta.stream%2FM-Sports%2Findex.m3u8",
+        url: "https://cdn.rabta.stream/M-Sports/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -536,7 +536,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "ms-srv4",
         name: "Server 4 (Cricket Gold Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fstreams2.sofast.tv%2Fptnr-yupptv%2Ftitle-cricketgold%2Fv1%2Fmaster%2F611d79b11b77e2f571934fd80ca1413453772ac7%2Fb2048bb8-1686-4432-aa50-647245383e0c%2Fmanifest.m3u8",
+        url: "https://streams2.sofast.tv/ptnr-yupptv/title-cricketgold/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/b2048bb8-1686-4432-aa50-647245383e0c/manifest.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
@@ -581,7 +581,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "euro-srv3",
         name: "Server 3 (CloudFront Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fd1t5afz6qed3xk.cloudfront.net%2FUnbeaten.m3u8",
+        url: "https://d1t5afz6qed3xk.cloudfront.net/Unbeaten.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "22ms"
@@ -589,7 +589,7 @@ export const CRICKET_CHANNELS = [
       {
         id: "euro-srv4",
         name: "Server 4 (SmartPlay Edge Proxy)",
-        url: "/proxy?url=https%3A%2F%2Fmumbai-edge.smartplaytv.in%2FTennis2%2Findex.m3u8",
+        url: "https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8",
         status: "active",
         bitrate: "1080p Proxy",
         ping: "24ms"
