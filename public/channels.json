@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-11-15T05:43:38.028Z",
+  "updatedAt": "2026-11-15T06:50:01.091Z",
   "source": "Aditya Proj Live TV Extractor",
   "totalChannels": 11,
   "totalServers": 44,
@@ -44,15 +44,7 @@
       "servers": [
         {
           "id": "ten3-srv1",
-          "name": "Server 1 (Cloud HD - Zero Buffering)",
-          "url": "https://cdn.rabta.stream/M-Sports/index.m3u8",
-          "status": "active",
-          "bitrate": "1080p Cloud HD",
-          "ping": "10ms"
-        },
-        {
-          "id": "ten3-srv2",
-          "name": "Server 2 (Broadpeak 1080p - Clean Direct)",
+          "name": "Server 1 (Sony LIV HD - Cloud Direct)",
           "url": "https://jiotvpllive.cdn.jio.com/bpk-tv/SonySportsTen3HinHDSTB_BTS/WDVLive/index.mpd",
           "type": "dash",
           "cookieUrl": "https://allrounder2-0.pages.dev/api/hindi.json",
@@ -65,6 +57,14 @@
           },
           "status": "active",
           "bitrate": "1080p Full HD",
+          "ping": "10ms"
+        },
+        {
+          "id": "ten3-srv2",
+          "name": "Server 2 (Backup Match Line 1080p)",
+          "url": "https://cdn.rabta.stream/M-Sports/index.m3u8",
+          "status": "active",
+          "bitrate": "1080p Cloud HD",
           "ping": "12ms"
         },
         {
